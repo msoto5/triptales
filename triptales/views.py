@@ -22,7 +22,7 @@ def index(request):
 
     context_dict = {}
 
-    visitor_cookie_handler(request)
+    #visitor_cookie_handler(request)
 
     response = render(request, 'triptales/index.html', context=context_dict)
     return response
