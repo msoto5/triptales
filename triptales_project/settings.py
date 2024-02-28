@@ -131,18 +131,7 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
-# PASSWORD_HASHERS = (
-#     'django.contrib.auth.hashersPBKDF2PasswordHasher',
-#     'django.contrib.auth.hashersPBKDF2SHA1PasswordHasher'
-# )
-
-# LOGIN_URL = 'rango:login' Updated after
-
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-
 ### REGISTRATION SETTINGS
-
 # If True, users can register
 REGISTRATION_OPEN = True
 
@@ -150,7 +139,7 @@ REGISTRATION_OPEN = True
 REGISTRATION_AUTO_LOGIN = True
 
 # The URL that Django redirects users to after logging in.
-LOGIN_REDIRECT_URL = 'rango:index'
+LOGIN_REDIRECT_URL = 'triptales:index'
 
 # The page users are directed to if they are not logged in.
 LOGIN_URL = 'auth_login'
