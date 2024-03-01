@@ -12,19 +12,9 @@ from triptales.models import *
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Not implemented yet.")
-
-    category_list = []
-    pages_list = []
-
-    context_dict = {}
-    context_dict['boldmessage'] = "Crunchy, creamy, cookie, candy, cupcake!"
-    context_dict['categories'] = category_list
-    context_dict['pages'] = pages_list
-
     context_dict = {}
 
-    visitor_cookie_handler(request)
+    #visitor_cookie_handler(request)
 
     response = render(request, 'triptales/index.html', context=context_dict)
     return response

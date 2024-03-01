@@ -1,4 +1,5 @@
-<!-- {% extends 'rango/base.html' %}
+{% extends 'triptales/base.html' %}
+{% load staticfiles %}
 
 {% block title %}
     Login
@@ -11,7 +12,43 @@
     </div>
 </div>
 <div class="container">
-    <form class="form-sigin" role="form" method="post" action=".">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <form class="form-signin">
+                <div class="text-center mb-4">
+                  <img class="mb-4 img-fluid" src="{% static 'images/logo.png' %}" alt="Triptales">
+                </div>
+          
+                {% csrf_token %}
+                <div class="mb-4 form-group">
+                    <label class="form-label" for="inputUsername">Username:</label>
+                    <input type="text" name="username" id="id_username" class="form-control" placeholder="Username" required autofocus>
+                </div>
+          
+                <div class="mb-4 form-group">
+                    <label class="form-label" for="inputPassword">Password:</label>
+                    <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
+                </div>
+          
+                <!-- <div class="checkbox mb-3">
+                  <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                  </label>
+                </div> -->
+                <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Log in</button>
+                <br />
+                <p class="text-center text-muted text-center">
+                    Don't have an account yet? <a href="{% url 'registration_register' %}">Sign Up</a>
+                    <!-- <small class="text-muted text-center">
+                        Don't have an account yet? <a href="{% url 'registration_register' %}">Sign Up</a>
+                    </small> -->
+                </p>
+            </form>
+        </div>
+    </div>
+    
+    
+    <!-- <form class="form-sigin" role="form" method="post" action=".">
         {% csrf_token %}
         <label for="inputUsername" class="sr-only">Username:</label>
         <input type="text" name="username" id="id_username" class="form-control" placeholder="Username" required autofocus>
@@ -22,6 +59,6 @@
     <p>
         Not registered?
         <a href="{% url 'registration_register' %}">Register here!</a>
-    </p>
+    </p> -->
 </div>
-{% endblock %} -->
+{% endblock %}
