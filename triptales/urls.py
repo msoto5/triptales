@@ -1,5 +1,6 @@
 """Urls for triptales app"""
 
+from django.conf.urls import include
 from django.urls import path
 from triptales import views
 
@@ -11,5 +12,5 @@ urlpatterns = [
     path('category/<slug:category_name_slug>/', views.show_category, name='show_category'),
     path('add_category/', views.add_category, name='add_category'),
     path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
-    path('goto/', views.goto_url, name='goto')
+    path('goto/', views.goto_url, name='goto'),
 ]
