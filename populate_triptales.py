@@ -1,13 +1,42 @@
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'triptales_project.settings')
 
 import django
-django.setup() # This is necessary to then import the models
+
+django.setup()  # This is necessary to then import the models
 from django.contrib.auth.models import User
-from triptales.models import VacationPost, Comment
+from triptales.models import VacationPost, Comment, Country, Location, UserProfile
+
 
 def populate():
+    countries = [
+        {'name': 'China', 'continent': 'Asia'},
+        {'name': 'UK', 'continent': 'Europe'},
+        {'name': 'Brazil', 'continent': 'South America'},
+        {'name': 'India', 'continent': 'Asia'},
+        {'name': 'Canada', 'continent': 'North America'},
+        {'name': 'Switzerland', 'continent': 'Europe'},
+        {'name': 'Japan', 'continent': 'Asia'},
+        {'name': 'Argentina', 'continent': 'South America'},
+        {'name': 'Austria', 'continent': 'Europe'},
+        {'name': 'Russia', 'continent': 'Asia'}
+
+    ]
+
+    locations = [
+        {'name': 'Beijing', 'country': 'China'},
+        {'name': 'London', 'country': 'UK'},
+        {'name': 'Brazil', 'country': 'Rio'},
+        {'name': 'Bangalore', 'country': 'India'},
+        {'name': 'Canada', 'country': 'Toronto'},
+        {'name': 'Geneva', 'country': 'Switzerland'},
+        {'name': 'Tokyo', 'country': 'Japan'},
+        {'name': 'Buenos Aires', 'country': 'Argentina'},
+        {'name': 'Gmunden', 'country': 'Austria'},
+        {'name': 'Moscow', 'country': 'Russia'},
+    ]
     users = [
         {'username': 'user1', 'password': 'qmwnebrv', 'email': 'user1@triptales.com'},
         {'username': 'user2', 'password': 'qmwnebrv', 'email': 'user2@triptales.com'},
@@ -15,20 +44,30 @@ def populate():
     ]
 
     vacation_posts = [
-        {'text': 'This is the first post by user1.', 'author': 'user1'},
-        {'text': 'This is the second post by user1.', 'author': 'user1'},
-        {'text': 'This is the first post by user2.', 'author': 'user2'},
-        {'text': 'This is the second post by user2.', 'author': 'user2'},
-        {'text': 'This is the first post by user3.', 'author': 'user3'},
-        {'text': 'This is the second post by user3.', 'author': 'user3'},
+        {'text': 'This is the first post by user1.', 'author': 'user1', 'country': 'China', 'location': 'Beijing'},
+        {'text': 'This is the second post by user1.', 'author': 'user1', 'country': 'UK', 'location': 'London'},
+        {'text': 'This is the first post by user2.', 'author': 'user2', 'country': 'Japan', 'location': 'Tokyo'},
+        {'text': 'This is the second post by user2.', 'author': 'user2', 'country': 'Austria', 'location': 'Gmunden'},
+        {'text': 'This is the first post by user3.', 'author': 'user3', 'country': 'Canada', 'location': 'Toronto'},
+        {'text': 'This is the second post by user3.', 'author': 'user3', 'country': 'Switzerland', 'location': 'Geneva'},
     ]
 
     # Create
-    for user in users:
-        add_user(user['username'], user['password'], user['email'])
-    
-    for post in vacation_posts:
-        add_post(post['text'], post['author'])
+    for country in countries:
+        c = add_country(country['name'], country['continent'])
+        for location in locations:
+            if location['country'] == country['name']:
+                l = add_location(location['name'], c)
+                for user in users:
+                    u = add_user(user['username'], user['password'], user['email'])
+                    for post in vacation_posts:
+                        if post['author'] == user['username']:
+                            add_post(post['text'], u, c, l)
+
+
+
+
+
 
 def add_user(username, password, email):
     user = User.objects.get_or_create(username=username, email=email)[0]
@@ -36,10 +75,33 @@ def add_user(username, password, email):
     user.save()
     return user
 
-def add_post(text, author):
+
+def add_post(text, author, country, location):
     user = User.objects.get(username=author)
     post = VacationPost.objects.get_or_create(text=text, author=user)[0]
+    post.country = country
+    post.location = location
+    post.likes = 0
+    post.save()
     return post
+
+
+def add_country(name, continent):
+    country = Country.objects.get_or_create(name=name, continent=continent)[0]
+    country.posts = 0
+    country.views = 0
+
+    country.save()
+    return country
+
+
+def add_location(name, country):
+    location = Location.objects.get_or_create(name=name, country=country)[0]
+    location.posts = 0
+    location.views = 0
+    location.save()
+    return location
+
 
 if __name__ == '__main__':
     print('Starting TripTales population script...')
