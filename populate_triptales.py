@@ -49,11 +49,15 @@ def populate():
         {'text': 'This is the first post by user2.', 'author': 'user2', 'country': 'Japan', 'location': 'Tokyo'},
         {'text': 'This is the second post by user2.', 'author': 'user2', 'country': 'Austria', 'location': 'Gmunden'},
         {'text': 'This is the first post by user3.', 'author': 'user3', 'country': 'Canada', 'location': 'Toronto'},
-        {'text': 'This is the second post by user3.', 'author': 'user3', 'country': 'Switzerland', 'location': 'Geneva'},
+        {'text': 'This is the second post by user3.', 'author': 'user3', 'country': 'Switzerland',
+         'location': 'Geneva'},
     ]
 
     # Create
+
+    i = 0
     for country in countries:
+        i += 1
         c = add_country(country['name'], country['continent'])
         for location in locations:
             if location['country'] == country['name']:
@@ -61,12 +65,9 @@ def populate():
                 for user in users:
                     u = add_user(user['username'], user['password'], user['email'])
                     for post in vacation_posts:
-                        if post['author'] == user['username']:
-                            add_post(post['text'], u, c, l)
-
-
-
-
+                        if i>=9:
+                            if post['author'] == user['username']:
+                                add_post(post['text'], u, c, l)
 
 
 def add_user(username, password, email):
@@ -78,9 +79,7 @@ def add_user(username, password, email):
 
 def add_post(text, author, country, location):
     user = User.objects.get(username=author)
-    post = VacationPost.objects.get_or_create(text=text, author=user)[0]
-    post.country = country
-    post.location = location
+    post = VacationPost.objects.get_or_create(text=text, author=user, country=country, location=location)[0]
     post.likes = 0
     post.save()
     return post
