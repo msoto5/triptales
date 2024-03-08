@@ -42,12 +42,14 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><a class="nav-link" href="{% url 'triptales:index' %}">Home</a></li>
                         <li class="nav-item "><a class="nav-link" href="{% url 'triptales:about' %}">About</a></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next=/triptales/">Logout</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Register Here</a></li>
-                        <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}"><strong>Register!</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
                         {% endif %}
                     </ul>
                 </div>
