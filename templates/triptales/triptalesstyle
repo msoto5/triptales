@@ -1,0 +1,9 @@
+.header-list {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.card-cover:hover {
+    opacity: 0.8; /* Reduce opacity on hover */
+    transition: opacity 0.3s ease; /* Add transition effect */
+}
