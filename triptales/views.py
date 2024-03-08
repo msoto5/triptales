@@ -12,16 +12,7 @@ from triptales.models import *
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Not implemented yet.")
-
-    category_list = []
-    pages_list = []
-
-    context_dict = {}
-    context_dict['boldmessage'] = "Crunchy, creamy, cookie, candy, cupcake!"
-    context_dict['categories'] = category_list
-    context_dict['pages'] = pages_list
-
+    
     context_dict = {}
 
     visitor_cookie_handler(request)
@@ -134,3 +125,10 @@ def goto_url(request):
     #         return redirect(selected_page.url)
     #     except Page.DoesNotExist:
     #         return redirect(reverse('triptales:index'))
+
+def quiz(request):
+    return HttpResponse("Not implemented yet.")
+
+def basetest(request, continent):
+    context_dict = {'continent': continent}
+    return render(request, 'triptales/basetest.html', context=context_dict)
