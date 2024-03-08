@@ -40,73 +40,76 @@
     }
         </style>
     </head>
-    <div class="container">
+
+    
+    <!-- Table with the continents -->
     <div class="container px-4 py-5" id="custom-cards">
         <h2 class="pb-2 border-bottom destinations-header">Browse Destinations</h2>
         
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col card-container">
-            <a href="{% url 'triptales:basetest' continent='europe.png'%}" style="text-decoration:none" >
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/europe.png' %}');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">Europe</h2>
-              </div>
+            <div class="col card-container">
+                <a href="{% url 'triptales:basetest' continent='europe.png'%}" style="text-decoration:none">
+                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/europe.png' %}');">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">Europe</h2>
+                        </div>
+                    </div>
+                </a>
             </div>
-          </div>
-        </a>
-          <div class="col card-container">
+        
+        <div class="col card-container">
             <a href="{% url 'triptales:basetest' continent='northamerica.png'%}" style="text-decoration:none" >
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/northamerica.png' %}');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">North America</h2>
-              </div>
-            </div>
-          </div>
-        </a>
-          <div class="col card-container">
-            <a href="{% url 'triptales:basetest' continent='asia.png'%}" style="text-decoration:none" >
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/asia.png' %}');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">Asia</h2>
-              </div>
-            </div>
-          </div>
-        </a>
+                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/northamerica.png' %}');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">North America</h2>
+                    </div>
+                </div>
+            </a>
         </div>
+        
+        <div class="col card-container">
+            <a href="{% url 'triptales:basetest' continent='asia.png'%}" style="text-decoration:none" >
+                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/asia.png' %}');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">Asia</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+    
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
             <div class="col card-container">
                 <a href="{% url 'triptales:basetest' continent='africa.png'%}" style="text-decoration:none" >
-              <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/africa.png' %}');">
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                  <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">Africa</h2>
-                </div>
-              </div>
-            </a>
+                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/africa.png' %}');">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">Africa</h2>
+                        </div>
+                    </div>
+                </a>
             </div>
       
             <div class="col card-container">
                 <a href="{% url 'triptales:basetest' continent='southamerica.png'%}" style="text-decoration:none" >
-              <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/southamerica.png' %}');">
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                  <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">South America</h2>
-                </div>
-              </div>
-              </a>
+                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/southamerica.png' %}');">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">South America</h2>
+                        </div>
+                    </div>
+                </a>
             </div>
       
             <div class="col card-container">
                 <a href="{% url 'triptales:basetest' continent='aus.png'%}" style="text-decoration:none" >
-              <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/aus.png' %}');">
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                  <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">Oceania</h2>
-                </div>
-              </div>
-            </a>
+                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/aus.png' %}');">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">Oceania</h2>
+                        </div>
+                    </div>
+                </a>
             </div>
-          </div>
-      </div>
+        </div>
     </div>
-    </div>
+
     <div class="container">
     <div class="row">
         <div class="col-md-6">

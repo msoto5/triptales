@@ -13,10 +13,7 @@ urlpatterns = [
     path('add_category/', views.add_category, name='add_category'),
     path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
     path('goto/', views.goto_url, name='goto'),
-<<<<<<< HEAD
     path('quiz', views.quiz, name='quiz'),
     path('basetest', views.basetest, name='basetest'),
     path('basetest/<str:continent>', views.basetest, name='basetest'),
-=======
->>>>>>> b85e744621ab335b6382cac825e904f1a5658d85
 ]

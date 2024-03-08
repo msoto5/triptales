@@ -28,60 +28,60 @@
     </head>
     
     <body>
-        <header style="background-color: #97D8E5;">
-                <div class="container" >
-                    <div>
-                        <h1 class="jumbotron-heading" style="text-align: center;">
-                            <a class="nav-link" style="color: #3B4282;" href="{% url 'triptales:index' %}">TripTales</a>
-                        </h1>
-                    </div>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success p-0">
+                <a class="navbar-brand p-2" href="{% url 'triptales:index' %}">
+                    <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                    <strong>TripTales</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="navbar navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'triptales:index' %}">Home</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'triptales:about' %}">About</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next=/triptales/">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Register Here</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>
                 </div>
-                <div style="margin-bottom: 20px; border-top: 4px solid #3B4282;">
-                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
-                      <div class="col-md-3 mb-2 mb-md-0">
-                        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                          <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-                        </a>
-                      </div>
-                      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-end">
-                        <li class="header-list"><a href="#" class="btn btn-outline-primary me-2">City Breaks</a></li>
-                        <li class="header-list"><a href="#" class="btn btn-outline-primary me-2">Beach Holidays</a></li>
-                        <li class="header-list"><a href="{% url 'triptales:quiz' %}" class="btn btn-outline-primary me-2">Holiday Quiz</a></li>
-                        <li style="margin-left: 20px; margin-right: 20px;"><a href="{% url 'triptales:about' %}" class="btn btn-outline-primary me-2">Popular Places</a></li>
-                      </ul>
-                      {% if user.is_authenticated %}
-                      <div class="col-md-3 text-end">
-                        <div class="btn">{{ user.username}}</div>
-                        <button type="button" class="btn btn-primary">Logout</button>
-                      </div>
-                      {% else %}
-                      <div class="col-md-3 text-end">
-                        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                        <button type="button" class="btn btn-primary">Sign-up</button>
-                      </div>
-                    {% endif %}
-                    </div>
-                  </div>
+            </nav>
         </header>
-                    {% block body_block %}{% endblock %}
-                    
-                    <!--- FOOTER -->
-                    <footer>
-                        <div class="container">
-                            <footer class="py-3 my-4">
-                              <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
-                              </ul>
-                              <p class="text-center text-body-secondary">© 2024 TripTales, Inc</p>
-                            </footer>
-                          </div>
-                    </footer>
-                </main>
+
+        <main role="main">
+            <div class="container-fluid" style="background-color: #97D8E5;">
+                <div>
+                    <h1 class="jumbotron-heading" style="text-align: center;">
+                        <a class="nav-link" style="color: #3B4282;" href="{% url 'triptales:index' %}">
+                            {% block page_title_block %}TripTales{% endblock %}
+                        </a>
+                    </h1>
+                </div>
             </div>
-        </div>
+
+            {% block body_block %}{% endblock %}
+        </main>
+                    
+        <!--- FOOTER -->
+        <footer>
+            <div class="container">
+                <footer class="py-3 my-4">
+                    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
+                    </ul>
+                    <p class="text-center text-body-secondary">© 2024 TripTales, Inc</p>
+                </footer>
+                </div>
+        </footer>
         
         <!-- Bootstrap core JavaScript -->
         <!-- Placed at the end of the document so the pages load faster -->
