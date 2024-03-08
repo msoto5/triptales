@@ -2,14 +2,74 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=128, unique=True)
+    posts = models.PositiveIntegerField(default=0)
+    views = models.PositiveIntegerField(default=0)
+    continent = models.CharField(max_length=10, choices=(("Europe", "Europe"),
+                                                         ("Asia", "Asia"),
+                                                         ("South America", "South America"),
+                                                         ("North America", "North America"),
+                                                         ("Africa", "Africa"),
+                                                         ("Oceania", "Oceania")))
+    slug = models.SlugField(max_length=128, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Countries'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Country, self).save(*args, **kwargs)
+
+
+class Location(models.Model):
+    name = models.CharField(max_length=128)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    posts = models.PositiveIntegerField(default=0)
+    views = models.PositiveIntegerField(default=0)
+    vibe = models.CharField(default='', max_length=128, choices=(("Party", "Party"),
+                                                                 ("Adventure", "Adventure"),
+                                                                 ("Romantic", "Romantic"),
+                                                                 ("Relaxed", "Relaxed")))
+    setting = models.CharField(default='',max_length=128, choices=(("City", "City"),
+                                                        ("Beach", "Beach"),
+                                                        ("Mountains", "Mountains"),
+                                                        ("Countryside", "Countryside")))
+    travelPartners = models.CharField(default='',max_length=128, choices=(("Family", "Family"),
+                                                               ("Friends", "Friends"),
+                                                               ("Partner", "Partner"),
+                                                               ("Solo", "Solo")))
+    climate = models.CharField(default='',max_length=128, choices=(("Hot", "Hot"),
+                                                        ("Cold", "Cold"),
+                                                        ("Mixed", "Mixed")))
+
+    slug = models.SlugField(max_length=128)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Location, self).save(*args, **kwargs)
+
 
 class VacationPost(models.Model):
     text = models.TextField()
     image = models.ImageField(upload_to='post_images', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.PositiveIntegerField(default=0)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Post by {self.author.username}'
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -18,6 +78,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user.username} commented on {self.post.id}: {self.text}'
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -28,6 +89,9 @@ class UserProfile(models.Model):
                                          related_name='saved_by_users')
     liked_posts = models.ManyToManyField(VacationPost, blank=True,
                                          related_name='liked_by_users')
+
+    posts_made = models.ManyToManyField(VacationPost, blank=True,
+                                        related_name='posts_made')
 
     def __str__(self):
         return self.user.username
