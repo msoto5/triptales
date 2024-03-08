@@ -11,9 +11,11 @@ class locationAdmin(admin.ModelAdmin):
 class postAdmin(admin.ModelAdmin):
     list_display = ('text', 'author', 'likes')
 
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'bio',)
 
 admin.site.register(Country, CountryAdmin)
 admin.site.register(Location, locationAdmin)
 admin.site.register(VacationPost, postAdmin)
 admin.site.register(Comment)
-admin.site.register(UserProfile)
+admin.site.register(UserProfile, UserProfileAdmin)

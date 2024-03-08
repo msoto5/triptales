@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+
 class Country(models.Model):
     name = models.CharField(max_length=128, unique=True)
     posts = models.PositiveIntegerField(default=0)
@@ -13,12 +14,14 @@ class Country(models.Model):
                                                          ("South America", "South America"),
                                                          ("North America", "North America"),
                                                          ("Africa", "Africa"),
-                                                         ("Oceania", "Oceania"),
-                                                         ("Antarctica", "Antarctica")))
+                                                         ("Oceania", "Oceania")))
     slug = models.SlugField(max_length=128, unique=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Countries'
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -30,7 +33,23 @@ class Location(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     posts = models.PositiveIntegerField(default=0)
     views = models.PositiveIntegerField(default=0)
-    slug = models.SlugField(max_length=128, )
+    vibe = models.CharField(default='', max_length=128, choices=(("Party", "Party"),
+                                                                 ("Adventure", "Adventure"),
+                                                                 ("Romantic", "Romantic"),
+                                                                 ("Relaxed", "Relaxed")))
+    setting = models.CharField(default='',max_length=128, choices=(("City", "City"),
+                                                        ("Beach", "Beach"),
+                                                        ("Mountains", "Mountains"),
+                                                        ("Countryside", "Countryside")))
+    travelPartners = models.CharField(default='',max_length=128, choices=(("Family", "Family"),
+                                                               ("Friends", "Friends"),
+                                                               ("Partner", "Partner"),
+                                                               ("Solo", "Solo")))
+    climate = models.CharField(default='',max_length=128, choices=(("Hot", "Hot"),
+                                                        ("Cold", "Cold"),
+                                                        ("Mixed", "Mixed")))
+
+    slug = models.SlugField(max_length=128)
 
     def __str__(self):
         return self.name
@@ -76,4 +95,3 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-

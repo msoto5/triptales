@@ -26,16 +26,16 @@ def populate():
     ]
 
     locations = [
-        {'name': 'Beijing', 'country': 'China'},
-        {'name': 'London', 'country': 'UK'},
-        {'name': 'Brazil', 'country': 'Rio'},
-        {'name': 'Bangalore', 'country': 'India'},
-        {'name': 'Canada', 'country': 'Toronto'},
-        {'name': 'Geneva', 'country': 'Switzerland'},
-        {'name': 'Tokyo', 'country': 'Japan'},
-        {'name': 'Buenos Aires', 'country': 'Argentina'},
-        {'name': 'Gmunden', 'country': 'Austria'},
-        {'name': 'Moscow', 'country': 'Russia'},
+        {'name': 'Beijing', 'country': 'China', 'vibe': 'Romantic', 'setting': 'City', 'partner':'Solo', 'climate': 'Hot'},
+        {'name': 'London', 'country': 'UK', 'vibe': 'Romantic', 'setting': 'City', 'partner':'Partner', 'climate': 'Mixed'},
+        {'name': 'Rio', 'country': 'Brazil', 'vibe': 'Relaxed', 'setting': 'Beach', 'partner':'Partner', 'climate': 'Hot'},
+        {'name': 'Bangalore', 'country': 'India', 'vibe': 'Adventure', 'setting': 'City', 'partner':'Solo', 'climate': 'Hot'},
+        {'name': 'Toronto', 'country': 'Canada', 'vibe': 'Adventure', 'setting': 'City', 'partner':'Solo', 'climate': 'Cold'},
+        {'name': 'Geneva', 'country': 'Switzerland', 'vibe': 'Adventure', 'setting': 'Mountains', 'partner':'Solo', 'climate': 'Mixed'},
+        {'name': 'Tokyo', 'country': 'Japan', 'vibe': 'Adventure', 'setting': 'City', 'partner':'Solo', 'climate': 'Hot'},
+        {'name': 'Buenos Aires', 'country': 'Argentina', 'vibe': 'Adventure', 'setting': 'City', 'partner':'Friends', 'climate': 'Hot'},
+        {'name': 'Gmunden', 'country': 'Austria', 'vibe': 'Relaxed', 'setting': 'Mountains', 'partner':'Solo', 'climate': 'Mixed'},
+        {'name': 'Moscow', 'country': 'Russia', 'vibe': 'Adventure', 'setting': 'City', 'partner':'Solo', 'climate': 'Hot'},
     ]
     users = [
         {'username': 'user1', 'password': 'qmwnebrv', 'email': 'user1@triptales.com'},
@@ -54,20 +54,19 @@ def populate():
     ]
 
     # Create
-
-    i = 0
     for country in countries:
-        i += 1
         c = add_country(country['name'], country['continent'])
         for location in locations:
             if location['country'] == country['name']:
-                l = add_location(location['name'], c)
-                for user in users:
-                    u = add_user(user['username'], user['password'], user['email'])
-                    for post in vacation_posts:
-                        if i>=9:
-                            if post['author'] == user['username']:
-                                add_post(post['text'], u, c, l)
+                l = add_location(location['name'], c, location['vibe'], location['setting'], location['partner'], location['climate'])
+
+    for user in users:
+        u = add_user(user['username'], user['password'], user['email'])
+        for post in vacation_posts:
+            if post['author'] == user['username']:
+                country = Country.objects.get(name=post['country'])
+                location = Location.objects.get(name=post['location'])
+                add_post(post['text'], u, country, location)
 
 
 def add_user(username, password, email):
@@ -89,15 +88,18 @@ def add_country(name, continent):
     country = Country.objects.get_or_create(name=name, continent=continent)[0]
     country.posts = 0
     country.views = 0
-
     country.save()
     return country
 
 
-def add_location(name, country):
+def add_location(name, country, vibe, setting, partner, climate):
     location = Location.objects.get_or_create(name=name, country=country)[0]
     location.posts = 0
     location.views = 0
+    location.vibe = vibe
+    location.setting = setting
+    location.partner = partner
+    location.climate = climate
     location.save()
     return location
 
