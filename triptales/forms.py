@@ -48,6 +48,8 @@ class UserProfileForm(forms.ModelForm):
 class VacationPostForm(forms.ModelForm):
     country = forms.ModelChoiceField(queryset=Country.objects.all(), empty_label="Select Country")
     location = forms.ModelChoiceField(queryset=Location.objects.none(), required=False)  # Initially empty or not required
+    text = forms.CharField(help_text="Caption Here.")
+    image = forms.ImageField(help_text="Please upload the image you wish to share")
     
     def __init__(self, *args, **kwargs):
         super(VacationPostForm, self).__init__(*args, **kwargs)
