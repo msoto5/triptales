@@ -30,7 +30,7 @@ class Country(models.Model):
 
 class Location(models.Model):
     name = models.CharField(max_length=128)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, default = 0)
     posts = models.PositiveIntegerField(default=0)
     views = models.PositiveIntegerField(default=0)
     vibe = models.CharField(default='', max_length=128, choices=(("Party", "Party"),
@@ -64,8 +64,8 @@ class VacationPost(models.Model):
     image = models.ImageField(upload_to='post_images', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.PositiveIntegerField(default=0)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, default = 0)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, default = 0)
 
     def __str__(self):
         return f'Post by {self.author.username}'
