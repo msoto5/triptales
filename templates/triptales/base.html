@@ -12,21 +12,20 @@
         <title>
             {% block title_block %}Find Your Holiday With TripTales{% endblock %}
         </title>
+
+        <!-- Bootstrap 5 .css file (needed for templates to work) -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         
-        <!---Bootstrap core CSS -->
-        <link href="https://getbootstrap.com/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/triptales/triptalesstyle.css' %}">
         <!--Custom styles for this template -->
         <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
-        <style>
-            .card-cover:hover {
-                opacity: 0.8; /* Reduce opacity on hover */
-                transition: opacity 0.3s ease; /* Add transition effect */
-    }
-        </style>
+        
+        <!-- Base Stylesheet -->
+        <link rel="stylesheet" href="{% static 'css/triptales/triptalesstyle.css' %}">
     </head>
     
     <body>
+        <!-- Bootstrap 5 .js file (needed for templates to work) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success p-0">
                 <a class="navbar-brand p-2" href="{% url 'triptales:index' %}">
@@ -55,31 +54,36 @@
             </nav>
         </header>
 
-        <main role="main">
-            <div class="container-fluid" style="background-color: #97D8E5;">
+        <div class="main">
+            <div class="container-fluid" style="background-color: #97D8E5; height: 65px">
                 <div>
-                    <h1 class="jumbotron-heading" style="text-align: center;">
+                    <h1 class="p-2 jumbotron-heading" style="text-align: center;">
                         <a class="nav-link" style="color: #3B4282;" href="{% url 'triptales:index' %}">
                             {% block page_title_block %}TripTales{% endblock %}
                         </a>
                     </h1>
                 </div>
             </div>
+        </div>
 
-            {% block body_block %}{% endblock %}
-        </main>
+        <!-- Full page gradient -->
+        <div id="full-page-gradient">
+
+            {% block body_block %}
+            {% endblock %}
+
                     
         <!--- FOOTER -->
         <footer>
             <div class="container">
                 <footer class="py-3 my-4">
                     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
+                    <li class="nav-item"><a href="{% url 'triptales:index' %}" class="nav-link px-2">Home</a></li>
+                    <li class="nav-item"><a href="{% url 'triptales:FAQ' %}" class="nav-link px-2">FAQs</a></li>
+                    <li class="nav-item"><a href="{% url 'triptales:about' %}" class="nav-link px-2">About</a></li>
+                    <li class="nav-item"><a href="{% url 'triptales:contact_us' %}" class="nav-link px-2">Contact Us</a></li>
                     </ul>
-                    <p class="text-center text-body-secondary">© 2024 TripTales, Inc</p>
+                    <p class="text-center">© 2024 TripTales, Inc</p>
                 </footer>
                 </div>
         </footer>
@@ -90,5 +94,6 @@
         <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="https://getbootstrap.com/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <script src="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.js"></script>
+        </div>
     </body>
 </html>

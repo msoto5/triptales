@@ -42,13 +42,16 @@ def visitor_cookie_handler(request):
     request.session['visits'] = visits
 
 def about(request):
-    context_dict = {'boldmessage': "Miguel"}
-
     visitor_cookie_handler(request)
-    context_dict['visits'] = request.session['visits']
+    return render(request, 'triptales/about.html')
 
-    response = render(request, 'triptales/about.html', context=context_dict)
-    return response
+def FAQ(request):
+    visitor_cookie_handler(request)
+    return render(request, 'triptales/FAQ.html')
+
+def contact_us(request):
+    visitor_cookie_handler(request)
+    return render(request, 'triptales/contact_us.html')
 
 def show_category(request, category_name_slug):
     return HttpResponse("Not implemented yet.")

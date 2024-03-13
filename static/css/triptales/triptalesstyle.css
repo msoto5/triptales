@@ -7,3 +7,33 @@
     opacity: 0.8; /* Reduce opacity on hover */
     transition: opacity 0.3s ease; /* Add transition effect */
 }
+
+/* Set to bottom gradient colour, literally to 
+   fix small white space at the bottom of pages */
+html {
+    background: #bdfffb; 
+}
+
+p {
+    line-height: 1.9;
+}
+
+
+/* Used for the blue index bar */
+.main {
+    padding-top: 52px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Current global gradient background, can be overridden */
+#full-page-gradient {
+    background-image: linear-gradient(#FFFFFF 50%, #effffe 80%, #bdfffb);
+    z-index: 0;
+    position: relative;
+}
+
+/* Colour of footer nav button text */
+.nav {
+    --bs-nav-link-color: #272727;
+}

@@ -1,0 +1,104 @@
+/* CSS Used for about.html */
+
+/* Used for shadow around main title screen */
+.title-container {
+    box-shadow: inset 0px 0px 50vh rgb(0, 0, 0);
+    padding-top: calc(40vh - 150px);
+    min-height: 90vh;
+}
+
+/* Houses the background image */
+.title-background {
+    width: 100%;
+    min-height: 90vh;
+    position: absolute;
+    z-index: -1;
+}
+
+/* h2 used for main title */
+h2 {
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 10px 10px 5px rgba(0, 0, 0, 0.37);
+    font-size: clamp(60px, 8vw, 200px);
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+}
+
+/* Secondary Text under main title */
+.lead {
+    font-size: max(min(1.9vw, 45px), 16px);
+    color: #ffffffc0;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.37);
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-delay: 0.7s;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    0% { opacity: 0; filter: blur(10px);}
+    100% { opacity: 1; filter: blur(0px);}
+}
+
+/* h3 used for featurette headings*/
+h3 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 10px 10px 5px rgba(0, 0, 0, 0.37);
+}
+
+/* Secondary colour found in featurette titles */
+.featurette-heading-secondary {
+    color: #afe8ff;
+}
+
+/* h3 used for featurette text*/
+h4 {
+    font-size: 32px;
+    font-weight: 100;
+    color: #ffffff;
+    text-shadow: 10px 10px 5px rgba(0, 0, 0, 0.37);
+}
+
+p {
+    color: #ffffff;
+}
+
+/* Backgound gradient override */
+#full-page-gradient {
+    background-image: linear-gradient(#160b00 50%, #000716 80%, #001f42);
+    z-index: 0;
+    position: relative;
+}
+
+/* HTML colour override (again to match bottom of gradient colour) */
+html {
+    background: #001f42; 
+}
+
+/* White dividors between featurettes */
+.featurette-divider {
+    margin: 5rem 0;
+    color: #ffffff;
+}
+
+/* Vertical spacing of the featurette text (See how it's slightly pushed down from the top?) */
+@media (min-width: 62em) {
+    .featurette-heading {
+        margin-top: 5rem;
+    }
+}
+
+/* Small seperator div that masks transition between title and featurettes */
+.transition-fix {
+    background-image: linear-gradient(#000000c0, #00000000);
+}
+
+/* Nav button text colour override */
+.nav {
+    --bs-nav-link-color: #ffffff;
+}

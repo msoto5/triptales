@@ -1,0 +1,67 @@
+{% extends 'triptales/base.html' %}
+{% block body_block %}
+{% load staticfiles %} 
+
+<!-- Load page specific Stylesheet-->
+<link rel="stylesheet" href="{% static 'css/triptales/FAQ.css' %}">
+
+<!-- Titlecard (Most of this is CSS) -->
+<div class="title-container">
+    <div class="title-background"></div>
+    <div class="title-text-container">
+        <h1 class="title-head" >TripTales FAQ's</h1>
+        <div class="secondary-text"> The place to go for your burning questions! </div>
+    </div>
+</div>
+
+<!-- Cheeky <br> so I don't need to use padding -->
+    <br>
+    <br>
+    <br>
+
+<!-- Bootstrap Accordion Example adapted to our usecase: https://getbootstrap.com/docs/5.3/components/accordion -->
+<div class="accordion-container">
+    <h1>General Information</h1>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <h4>What is the main purpose of TripTales?</h4>
+            </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>TripTales is an online platform for like minded travellers to share wonderful places and experiences!</strong> We firmly believe in everyone getting that dream get away for themselves, or with others, and on any budget. TripTales allows anyone to share their stories and holidays with the rest of the world, and out tightnit and adventure hungry community currates everyones experiences into a easy to digest review for a potential holiday of a lifetime
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <h4>Is this a paid service?</h4>
+            </button>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>No!</strong> Viewing posts is available to everyone free of charge, and more features can be unlocked by creating a free account. Our service is ran via ads on our website, therefore we can keep this website up without direct contributions.
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <br>
+        <br>
+
+    <h1>Account Information</h1>
+    <div class="accordion" id="accordionTwo">
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <h4>How do I make an account?</h4>
+            </button>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionTwo">
+                <div class="accordion-body">
+                    If you are not currently logged into an account, a "Register" button will be visable at the top right of the page throughout the site. Click on that button and follow the instructions on the register page.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
