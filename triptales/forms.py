@@ -46,13 +46,13 @@ class UserProfileForm(forms.ModelForm):
 
 
 class VacationPostForm(forms.ModelForm):
-    location = forms.ModelChoiceField(queryset=Location.objects.all(), empty_label="Select Location", required=False)
+    location = forms.ModelChoiceField(queryset=Location.objects.all().order_by('name'), empty_label="Select Location", required=False)
     text = forms.CharField(help_text="Caption Here.")
     image = forms.ImageField(help_text="Please upload the image you wish to share")
 
     def __init__(self, *args, **kwargs):
         super(VacationPostForm, self).__init__(*args, **kwargs)
-        self.fields['location'].queryset = Location.objects.all()  # Set the queryset for the location field
+        self.fields['location'].queryset = Location.objects.all().order_by('name')  # Set the queryset for the location field
 
     def clean_location(self):
         location = self.cleaned_data['location']
