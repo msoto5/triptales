@@ -1,6 +1,6 @@
 """Views for the triptales app."""
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
@@ -19,6 +19,41 @@ def index(request):
 
     response = render(request, 'triptales/index.html', context=context_dict)
     return response
+
+def posts_by_continent(request, continent_name):
+    continent_name = continent_name.replace('-', '').replace('.png','')
+
+    countries = Country.objects.filter(continent__iexact=continent_name)
+
+    posts = VacationPost.objects.filter(country__in=countries).distinct()
+
+    context_dict = {
+        'continent_name': continent_name,
+        'posts': posts,
+    }
+
+    return render(request, 'triptales/posts_by_continent.html', context=context_dict)
+
+def post_detail(request, post_id):
+    post = get_object_or_404(VacationPost, pk=post_id)
+    context = {'post': post}
+    return render(request, 'triptales/post_detail.html', context)
+
+@login_required
+def create_post(request):
+    countries = Country.objects.all()
+    if request.method == 'POST':
+        form = VacationPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            form.save_m2m()
+            return redirect('triptales:index')
+    else:
+        form = VacationPostForm()
+
+    return render(request, 'triptales/create_post.html', {'form': form, 'countries': countries})
 
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)

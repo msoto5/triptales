@@ -40,11 +40,13 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><a class="nav-link" href="{% url 'triptales:index' %}">Home</a></li>
                         <li class="nav-item "><a class="nav-link" href="{% url 'triptales:about' %}">About</a></li>
+                        
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next=/triptales/">Logout</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'triptales:create_post' %}">Create Post</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}"><strong>Register!</strong></a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
@@ -94,6 +96,6 @@
         <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="https://getbootstrap.com/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <script src="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.js"></script>
-        </div>
+        {% block extra_js %}{% endblock %}
     </body>
 </html>
