@@ -132,6 +132,11 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
+PROFILE_IMG_DIR = 'profile_images'
+POST_IMG_DIR = 'post_images'
+MEDIA_PROFILE_IMG_URL = MEDIA_URL + 'profile_images/'
+MEDIA_POST_IMG_URL = MEDIA_URL + 'post_images/'
+
 ### REGISTRATION SETTINGS
 # If True, users can register
 REGISTRATION_OPEN = True

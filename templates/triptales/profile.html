@@ -1,0 +1,49 @@
+{% extends 'triptales/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+  Profile for {{ selected_user.username }}
+{% endblock %}
+
+{% block body_block %}
+  <div class="jumbotron p-4">
+    <div class="container">
+      <h1 class="jumbotron-heading">{{ selected_user.username }}'s Profile</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div>
+        <strong>Bio:</strong>
+        Bio: {{ user_profile.bio }}
+      </div>
+      
+      {% if user_profile.picture != null %}
+        <div class="text-center mb-4">
+          <img class="mb-4 img-fluid" src="{{ MEDIA_PROFILE_IMG_URL }}{{ user_profile.picture.url }}" alt="{{ selected_user.username }}'s profile image" />
+        </div>
+      {% else %}
+        No picture
+      {% endif %}
+
+      <br />
+      <div>
+        {% if selected_user == user %}
+          <!-- User seing its own profile -->
+          <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update" />
+          </form>
+        {% else %}
+          <!-- User seing other user profile -->
+          <p>
+            <strong>Bio:</strong>
+            <p>{{ user_profile.bio }}</p>
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -3,6 +3,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from triptales_project.settings import PROFILE_IMG_DIR, POST_IMG_DIR
 
 
 class Country(models.Model):
@@ -61,7 +62,7 @@ class Location(models.Model):
 
 class VacationPost(models.Model):
     text = models.TextField()
-    image = models.ImageField(upload_to='post_images', blank=True)
+    image = models.ImageField(upload_to=POST_IMG_DIR, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.PositiveIntegerField(default=0)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, blank=True, null=True)
@@ -82,7 +83,7 @@ class Comment(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to=PROFILE_IMG_DIR, blank=True)
     bio = models.TextField(blank=True)
 
     saved_posts = models.ManyToManyField(VacationPost, blank=True,
