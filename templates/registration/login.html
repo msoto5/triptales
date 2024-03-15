@@ -15,34 +15,34 @@ Login
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-md-6 col-lg-4">
             <div class="card bg-light opacity-8 p-4">
-                <form class="form-validate">
-                        <div class="text-center mb-4">
-                            <img class="mb-4 img-fluid" src="{% static 'images/logo.png' %}" alt="Triptales">
-                        </div>
+                <form class="form-validate" role="form" method="post" action=".">
+                    <div class="text-center mb-4">
+                        <img class="mb-4 img-fluid" src="{% static 'images/logo.png' %}" alt="Triptales">
+                    </div>
 
-                        {% csrf_token %}
-                        <div class="mb-4 form-group">
-                            <label class="form-label" for="inputUsername">Username:</label>
-                            <input type="text" name="username" id="id_username" class="form-control" placeholder="Username"
-                                required autofocus>
-                        </div>
+                    {% csrf_token %}
+                    <div class="mb-4 form-group">
+                        <label class="form-label" for="inputUsername">Username:</label>
+                        <input type="text" name="username" id="id_username" class="form-control" placeholder="Username"
+                            required autofocus>
+                    </div>
 
-                        <div class="mb-4 form-group">
-                            <label class="form-label" for="inputPassword">Password:</label>
-                            <input type="password" name="password" id="id_password" class="form-control" placeholder="Password"
-                                required>
-                        </div>
+                    <div class="mb-4 form-group">
+                        <label class="form-label" for="inputPassword">Password:</label>
+                        <input type="password" name="password" id="id_password" class="form-control" placeholder="Password"
+                            required>
+                    </div>
 
-                        <!-- <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Remember me
-                        </label>
-                        </div> -->
-                        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Log in</button>
-                        <br />
-                        <p class="text-center text-muted text-center">
-                            Don't have an account yet? <a href="{% url 'registration_register' %}">Sign Up</a>
-                        </p>
+                    <!-- <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                    </div> -->
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Log in</button>
+                    <br />
+                    <p class="text-center text-muted text-center">
+                        Don't have an account yet? <a href="{% url 'registration_register' %}">Sign Up</a>
+                    </p>
                     </form>
                 </div>
             </div>

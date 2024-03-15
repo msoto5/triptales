@@ -4,10 +4,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from triptales.forms import *
 from triptales.models import *
+from django.views import View
+from django.utils.decorators import method_decorator
 
 
 # Create your views here.
@@ -177,3 +180,73 @@ def quiz(request):
 def basetest(request, continent):
     context_dict = {'continent': continent}
     return render(request, 'triptales/basetest.html', context=context_dict)
+
+@login_required
+def register_profile(request):
+    form = UserProfileForm()
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            user_profile = form.save(commit=False)
+            user_profile.user = request.user
+            user_profile.save()
+
+            return redirect(reverse('triptales:index'))
+        else:
+            print(form.errors)
+
+    context_dict = {'form': form}
+    return render(request, 'triptales/profile_registration.html', context_dict)
+
+class ProfileView(View):
+    def get_user_details(self, username):
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return None
+
+        user_profile = UserProfile.objects.get_or_create(user=user)[0]
+        print(f"User_profile {user_profile.bio}")
+        form = UserProfileForm({'bio': user_profile.bio,
+                                'picture': user_profile.picture})
+
+        return (user, user_profile, form)
+
+    @method_decorator(login_required)
+    def get(self, request, username):
+        try:
+            (user, user_profile, form) = self.get_user_details(username)
+        except TypeError:
+            return redirect(reverse('triptales:index'))
+        
+        context_dict = {'user_profile': user_profile,
+                        'selected_user': user,
+                        'form': form}
+        return render(request, 'triptales/profile.html', context_dict)
+    
+    @method_decorator(login_required)
+    def post(self, request, username):
+        # Check if the user is the same as the one who is logged in
+        if request.user.username != username:
+            return redirect(reverse('triptales:index'))
+        
+        try:
+            (user, user_profile, form) = self.get_user_details(username)
+        except TypeError:
+            return redirect(reverse('triptales:index'))
+        
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('triptales:profile', user.username)
+        else:
+            print(form.errors)
+        
+        context_dict = {'user_profile': user_profile,
+                        'selected_user': user,
+                        'form': form}
+        
+        return render(request, 'triptales/profile.html', context_dict)

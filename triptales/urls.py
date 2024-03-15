@@ -21,4 +21,6 @@ urlpatterns = [
     path('posts/<str:continent_name>/', views.posts_by_continent, name='posts_by_continent'),
     path('posts/detail/<int:post_id>/', views.post_detail, name='post_detail'),
     path('create_post/', views.create_post, name='create_post'),
+    path('register_profile/', views.register_profile, name='register_profile'),
+    path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
 ]
