@@ -41,19 +41,26 @@ def post_detail(request, post_id):
 
 @login_required
 def create_post(request):
-    countries = Country.objects.all()
+    locations = Location.objects.all()
+    form = VacationPostForm()
+
     if request.method == 'POST':
         form = VacationPostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=True)
             post.author = request.user
+            post.likes = 0
+            currentLocation= Location.objects.get(id=post.location.id)
+            post.country = currentLocation.country
             post.save()
             form.save_m2m()
-            return redirect('triptales:index')
-    else:
-        form = VacationPostForm()
+            print("Woop")
+            return redirect(reverse('triptales:index')) # Redirect to the desired page after successful form submission
+        else:
+            print(form.errors)
 
-    return render(request, 'triptales/create_post.html', {'form': form, 'countries': countries})
+
+    return render(request, 'triptales/create_post.html', {'form': form, 'locations': locations})
 
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)

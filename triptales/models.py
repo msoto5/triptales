@@ -64,8 +64,8 @@ class VacationPost(models.Model):
     image = models.ImageField(upload_to='post_images', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.PositiveIntegerField(default=0)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, default = 0)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, default = 0)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f'Post by {self.author.username}'
