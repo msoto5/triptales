@@ -27,6 +27,7 @@
         <!-- Bootstrap 5 .js file (needed for templates to work) -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+            <!-- NavBar stuff -->
             <div class="left_nav">
                 <div class="child2">
                     <a href="{% url 'triptales:index' %}"><button class="button-nav" role="button">Home</button></a>
@@ -70,11 +71,10 @@
 
         <div class="nava">
             <div class="title-nav">
-                <p style="margin-bottom: 0px;">TripTales</p>
+                <h6 style="margin-bottom: 0px;">TripTales</h6>
             </div>
         </div>
-
-
+        <!-- NavBar end -->
 
         <!-- Full page gradient -->
         <div id="full-page-gradient">
@@ -82,7 +82,6 @@
             {% block body_block %}
             {% endblock %}
 
-                    
         <!--- FOOTER -->
         <footer>
             <div class="container">

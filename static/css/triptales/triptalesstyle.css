@@ -14,24 +14,11 @@ html {
     background: #bdfffb; 
 }
 
-.title-nav {
-    text-shadow: 0px 2px 6px #0000004f;
-    color:#FFFFFF;
-    font-size: 35px;
-    font-weight: 600;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-}
-
-
-/* Used for the blue index bar */
-.main {
-    padding-top: 52px;
-    position: relative;
-    z-index: 2;
+/* DON'T USE H6 for anything else, need it for title*/
+h6 {
+  color:#ffffff;
+  font-size: 40px;
+  font-weight: 600;
 }
 
 /* Current global gradient background, can be overridden */
@@ -46,36 +33,49 @@ html {
     --bs-nav-link-color: #272727;
 }
 
-
-.left_nav {
-    display: grid;
-    grid-template-columns: 1fr;
-    float: left;
-  }
-  
-  .left_nav div {
-   padding: 10px;
-   grid-row-start: 1;
-   grid-column-start: 1;
-  }
-
-  .right_nav {
-    display: grid;
-    grid-template-columns: 1fr;
-    float: right;
-  }
-  
-  .right_nav div {
-   padding: 10px;
-   grid-row-start: 1;
-   grid-column-start: 1;
-  }
-
+/* Navigation bar frame + background*/
 .nava {
-    height: 60px;
-    background-image: radial-gradient(100% 100% at 50% 50%, #44a0ba 0, #3d4cba 100%);
+  height: 60px;
+  background-image: radial-gradient(100% 100% at 50% 50%, #44a0ba 0, #3d4cba 100%);
 }
 
+/* TripTales logo text*/
+.title-nav {
+  text-shadow: 0px 2px 6px #0000004f;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+/* Shenanigans to get navbar to work */
+.left_nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  float: left;
+}
+  
+.left_nav div {
+  padding: 10px;
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+.right_nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  float: right;
+}
+  
+.right_nav div {
+  padding: 10px;
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+/* Used to expand the nav bar to fit 
+   everything when width is small */
 @media (max-width: 940px) {
     .nava {
         height: 120px;
@@ -85,44 +85,23 @@ html {
     }
 }
 
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  li {
-    display: inline;
-  }
-
-/* CSS */
+/* Cool navbar buttons */
 .button-nav {
   align-items: center;
-  appearance: none;
   background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
   border: 0;
   border-radius: 6px;
   box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
-  box-sizing: border-box;
   color: #fff;
-  cursor: pointer;
   height: 40px;
-  justify-content: center;
   line-height: 1;
-  list-style: none;
   overflow: hidden;
   padding-left: 16px;
   padding-right: 16px;
   position: relative;
   z-index: 2;
-  text-align: left;
-  text-decoration: none;
   transition: box-shadow .15s,transform .15s;
-  user-select: none;
-  -webkit-user-select: none;
   touch-action: manipulation;
-  white-space: nowrap;
   display: inline-flex;
   will-change: box-shadow,transform;
   font-size: 14px;

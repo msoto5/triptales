@@ -9,7 +9,7 @@
     width: 100%;
     min-height: 40vh;
     background: url(../../images/traveler_landscape.png);
-    filter: blur(1px) brightness(0.5);
+    filter: brightness(0.5);
     background-repeat: no-repeat;
     background-size: 200%;
     background-position: center center;
