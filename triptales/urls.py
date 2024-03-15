@@ -22,5 +22,6 @@ urlpatterns = [
     path('posts/detail/<int:post_id>/', views.post_detail, name='post_detail'),
     path('create_post/', views.create_post, name='create_post'),
     path('register_profile/', views.register_profile, name='register_profile'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
     path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
 ]

@@ -18,7 +18,7 @@
         <strong>Bio:</strong>
         Bio: {{ user_profile.bio }}
       </div>
-      
+
       {% if user_profile.picture != null %}
         <div class="text-center mb-4">
           <img class="mb-4 img-fluid" src="{{ MEDIA_PROFILE_IMG_URL }}{{ user_profile.picture.url }}" alt="{{ selected_user.username }}'s profile image" />
@@ -28,21 +28,93 @@
       {% endif %}
 
       <br />
-      <div>
-        {% if selected_user == user %}
-          <!-- User seing its own profile -->
-          <form method="post" action="." enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Update" />
-          </form>
-        {% else %}
-          <!-- User seing other user profile -->
-          <p>
-            <strong>Bio:</strong>
-            <p>{{ user_profile.bio }}</p>
-          </p>
-        {% endif %}
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card md-4">
+              <div class="card-body">
+                <h2>User Posts</h2>
+                <p class="card-text">
+                  {% if user_posts %}
+                    {{ user_posts|length }} posts<ul class="list-group">
+                      {% for post in user_posts %}
+                        <li class="list-group-item">
+                          <a href="{% url 'triptales:post_detail' post.id %}">{{ post.location.name }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    {% if selected_user == user %}
+                      The posts you write will appear here. Click <a href="{% url 'triptales:create_post' %}">here</a> to write a new post.
+                    {% else %}
+                      {{ selected_user.username }} has not written any posts yet.
+                    {% endif %}
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card md-4">
+              <div class="card-body">
+                <h2>Liked Posts</h2>
+                <p class="card-text">
+                  {% if liked_posts %}
+                    {{ liked_posts|length }} liked posts<ul class="list-group">
+                      {% for post in liked_posts %}
+                        <li class="list-group-item">
+                          <a href="{% url 'triptales:post_detail' post.id %}">{{ post.location.name }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    {% if selected_user == user %}
+                      The posts you like will appear here.
+                    {% else %}
+                      {{ selected_user.username }} has not liked any posts yet.
+                    {% endif %}
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card md-4">
+              <div class="card-body">
+                <h2>Saved Posts</h2>
+                <p class="card-text">
+                  {% if saved_posts %}
+                    {{ saved_posts|length }} saved posts<ul class="list-group">
+                      {% for post in saved_posts %}
+                        <li class="list-group-item">
+                          <a href="{% url 'triptales:post_detail' post.id %}">{{ post.location.name }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    {% if selected_user == user %}
+                      The posts you save will appear here.
+                    {% else %}
+                      {{ selected_user.username }} has not saved any posts yet.
+                    {% endif %}
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right_nav">
+        <div class="child2">
+          <a href="{% url 'triptales:edit_profile' %}"><button class="button-nav" role="button">Edit profile</button></a>
+        </div>
+      </div>
+
+      <div class="right_nav">
+        <div class="child2">
+          <a href="{% url 'auth_password_change' %}"><button class="button-nav" role="button">Change Password</button></a>
+        </div>
       </div>
     </div>
   </div>
