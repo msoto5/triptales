@@ -26,48 +26,55 @@
     <body>
         <!-- Bootstrap 5 .js file (needed for templates to work) -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        
+        <!-- Load corresponding css depending if user is logged in -->
+        {% if user.is_authenticated %}
+            <link rel="stylesheet" href="{% static 'css/triptales/navbar_signed_in.css' %}">
+        {% else %}
+            <link rel="stylesheet" href="{% static 'css/triptales/navbar_guest.css' %}">
+        {% endif %}
+            
+    <!-- NavBar stuff -->
+        <div class="left_nav">
+            <div class="child2">
+                <a href="{% url 'triptales:index' %}"><button class="button-nav" role="button">Home</button></a>
+            </div>
+        </div>
 
-            <!-- NavBar stuff -->
-            <div class="left_nav">
-                <div class="child2">
-                    <a href="{% url 'triptales:index' %}"><button class="button-nav" role="button">Home</button></a>
-                </div>
+        <div class="left_nav">
+            <div class="child2">
+                <a href="{% url 'triptales:about' %}"><button class="button-nav" role="button">About</button></a>
             </div>
+        </div>
 
-            <div class="left_nav">
-                <div class="child2">
-                    <a href="{% url 'triptales:about' %}"><button class="button-nav" role="button">About</button></a>
-                </div>
+        {% if user.is_authenticated %}
+        <div class="right_nav">
+            <div class="child2">
+                <a href="{% url 'auth_logout' %}?next=/triptales/"><button class="button-nav" role="button">Logout</button></a>
             </div>
-
-            {% if user.is_authenticated %}
-            <div class="right_nav">
-                <div class="child2">
-                    <a href="{% url 'auth_logout' %}?next=/triptales/"><button class="button-nav" role="button">Logout</button></a>
-                </div>
+        </div>
+        <div class="right_nav">
+            <div class="child2">
+                <a href="{% url 'auth_password_change' %}"><button class="button-nav" role="button">Change Password</button></a>
             </div>
-            <div class="right_nav">
-                <div class="child2">
-                    <a href="{% url 'auth_password_change' %}"><button class="button-nav" role="button">Change Password</button></a>
-                </div>
+        </div>
+        <div class="right_nav">
+            <div class="child2">
+                <a href="{% url 'triptales:create_post' %}"><button class="button-nav" role="button">Create Post</button></a>
             </div>
-            <div class="right_nav">
-                <div class="child2">
-                    <a href="{% url 'triptales:create_post' %}"><button class="button-nav" role="button">Create Post</button></a>
-                </div>
+        </div>
+        {% else %}
+        <div class="right_nav">
+            <div class="child2">
+                <a href="{% url 'registration_register' %}"><button class="button-nav" role="button">Sign Up</button></a>
             </div>
-            {% else %}
-            <div class="right_nav">
-                <div class="child2">
-                    <a href="{% url 'registration_register' %}"><button class="button-nav" role="button">Sign Up</button></a>
-                </div>
+        </div>
+        <div class="right_nav">
+            <div class="child2">
+                <a href="{% url 'auth_login' %}"><button class="button-nav" role="button">Log In</button></a>
             </div>
-            <div class="right_nav">
-                <div class="child2">
-                    <a href="{% url 'auth_login' %}"><button class="button-nav" role="button">Log In</button></a>
-                </div>
-            </div>
-            {% endif %}
+        </div>
+        {% endif %}
 
         <div class="nava">
             <div class="title-nav">

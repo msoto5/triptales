@@ -14,13 +14,6 @@ html {
     background: #bdfffb; 
 }
 
-/* DON'T USE H6 for anything else, need it for title*/
-h6 {
-  color:#ffffff;
-  font-size: 40px;
-  font-weight: 600;
-}
-
 /* Current global gradient background, can be overridden */
 #full-page-gradient {
     background-image: linear-gradient(#FFFFFF 50%, #effffe 80%, #bdfffb);
@@ -31,88 +24,4 @@ h6 {
 /* Colour of footer nav button text */
 .nav {
     --bs-nav-link-color: #272727;
-}
-
-/* Navigation bar frame + background*/
-.nava {
-  height: 60px;
-  background-image: radial-gradient(100% 100% at 50% 50%, #44a0ba 0, #3d4cba 100%);
-}
-
-/* TripTales logo text*/
-.title-nav {
-  text-shadow: 0px 2px 6px #0000004f;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-}
-
-/* Shenanigans to get navbar to work */
-.left_nav {
-  display: grid;
-  grid-template-columns: 1fr;
-  float: left;
-}
-  
-.left_nav div {
-  padding: 10px;
-  grid-row-start: 1;
-  grid-column-start: 1;
-}
-
-.right_nav {
-  display: grid;
-  grid-template-columns: 1fr;
-  float: right;
-}
-  
-.right_nav div {
-  padding: 10px;
-  grid-row-start: 1;
-  grid-column-start: 1;
-}
-
-/* Used to expand the nav bar to fit 
-   everything when width is small */
-@media (max-width: 940px) {
-    .nava {
-        height: 120px;
-    }
-    .title-nav {
-        top: 60px;
-    }
-}
-
-/* Cool navbar buttons */
-.button-nav {
-  align-items: center;
-  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
-  border: 0;
-  border-radius: 6px;
-  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
-  color: #fff;
-  height: 40px;
-  line-height: 1;
-  overflow: hidden;
-  padding-left: 16px;
-  padding-right: 16px;
-  position: relative;
-  z-index: 2;
-  transition: box-shadow .15s,transform .15s;
-  touch-action: manipulation;
-  display: inline-flex;
-  will-change: box-shadow,transform;
-  font-size: 14px;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-.button-nav:focus {
-  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-}
-.button-nav:active {
-  box-shadow: #3c4fe0 0 3px 7px inset;
 }
