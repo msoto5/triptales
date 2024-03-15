@@ -1,32 +1,6 @@
 @import url("navbar_base.css");
 
-@media (max-width: 510px) {
-
-    .left_nav div {
-      padding: 0px;
-      padding-left: 3px;
-      padding-right: 3px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-    .right_nav div {
-      padding: 0px;
-      padding-left: 3px;
-      padding-right: 3px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-    .button-nav {
-      border-radius: 4px;
-      height: 32px;
-      padding-left: 8px;
-      padding-right: 8px;
-      font-size: 12px;
-    }
-}
-
-
-@media (max-width: 510px) {
+@media (max-width: 550px) {
 
   .left_nav div {
     padding: 0px;
