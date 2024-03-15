@@ -1,35 +1,93 @@
 @import url("navbar_base.css");
 
-@media (max-width: 550px) {
+:root {
+  --scale: calc((100vw - 325px) / 145); /* 470 - x = 325 | x = 145 */
+  --scale-il: calc((100vw - 470px) / 150); /* 620 - x = 470 | x = 150px */
+}
+
+@media (max-width: 620px) {
 
   .left_nav div {
     padding: 0px;
-    padding-left: 3px;
-    padding-right: 3px;
+    padding-left: calc(3px + calc(6 * var(--scale-il)));
+    padding-right: calc(3px + calc(6 * var(--scale-il)));
     padding-top: 10px;
-    padding-bottom: 10px;
   }
   .right_nav div {
     padding: 0px;
-    padding-left: 3px;
-    padding-right: 3px;
+    padding-left: calc(3px + calc(6 * var(--scale-il)));
+    padding-right: calc(3px + calc(6 * var(--scale-il)));
     padding-top: 10px;
-    padding-bottom: 10px;
   }
   .button-nav {
-    border-radius: 4px;
-    height: 32px;
-    padding-left: 8px;
-    padding-right: 8px;
-    font-size: 12px;
+    border-radius: 6px;
+    height: calc(32px + calc(8 * var(--scale-il)));
+    padding-left: calc(8px + calc(8 * var(--scale-il)));
+    padding-right: calc(8px + calc(8 * var(--scale-il)));
+    font-size: calc(12px + calc(4 * var(--scale-il)));
   }
 }
 
-@media (max-width: 385px) {
+@media (max-width: 470px) {
+  .nava {
+      height: 120px;
+  }
+  .left_nav {
+    position: relative;
+    top: 60px;
+  }
+  .right_nav {
+    position: relative;
+    top: 60px;
+  }
+
+  .left_nav div {
+    padding: 0px;
+    padding-left: calc(6px + calc(5 * var(--scale)));
+    padding-right: calc(6px + calc(5 * var(--scale)));
+    padding-top: calc(10px - calc(10 * var(--scale)));
+  }
+  .right_nav div {
+    padding: 0px;
+    padding-left: calc(6px + calc(5 * var(--scale)));
+    padding-right: calc(6px + calc(5 * var(--scale)));
+    padding-top: calc(10px - calc(10 * var(--scale)));
+  }
+  .button-nav {
+    border-radius: 6px;
+    height: calc(32px + calc(8 * var(--scale)));
+    padding-left: calc(10px + calc(8 * var(--scale)));
+    padding-right: calc(10px + calc(8 * var(--scale)));
+    font-size: calc(15px + calc(4 * var(--scale)));
+  }
+}
+
+@media (max-width: 325px) {
+
+  .left_nav div {
+    padding: 0px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 10px;
+  }
+  .right_nav div {
+    padding: 0px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 10px;
+  }
+  .button-nav {
+    border-radius: 6px;
+    height: 32px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+  }
+
   html {
-    min-width: 385px;
+    min-width: 308px;
   }
   .title-nav {
-    left: calc((385px - 100vw) / 2)
+    left: calc((325px - 100vw) / 2)
   }
 }
