@@ -29,7 +29,8 @@ SECRET_KEY = '-nrw#+%)_h3emw-dr(nz*vq7cytgnq911d%mjeq8uu-1wv7+tv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["cammyk.pythonanywhere.com"]
+ALLOWED_HOSTS = ["cammyk.pythonanywhere.com",
+                 "127.0.0.1"]
 
 
 # Application definition
