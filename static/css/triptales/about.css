@@ -2,15 +2,15 @@
 
 /* Used for shadow around main title screen */
 .title-container {
-    box-shadow: inset 0px 0px 50vh rgb(0, 0, 0);
+    box-shadow: inset 0px -100px 50vh rgb(0, 0, 0);
     padding-top: calc(40vh - 150px);
-    min-height: 90vh;
+    min-height: 95vh;
 }
 
 /* Houses the background image */
 .title-background {
     width: 100%;
-    min-height: 90vh;
+    min-height: 95vh;
     position: absolute;
     z-index: -1;
 }

@@ -45,7 +45,7 @@ def create_post(request):
     if request.method == 'POST':
         form = VacationPostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save(commit=False)
+            post = form.save(commit=True)
             post.author = request.user
             post.save()
             form.save_m2m()
