@@ -200,6 +200,24 @@ def register_profile(request):
     context_dict = {'form': form}
     return render(request, 'triptales/profile_registration.html', context_dict)
 
+@login_required
+def edit_profile(request):
+    user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
+    form = UserProfileForm({'bio': user_profile.bio,
+                            'picture': user_profile.picture})
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('triptales:profile', request.user.username)
+        else:
+            print(form.errors)
+
+    context_dict = {'user_profile': user_profile, 'form': form}
+    return render(request, 'triptales/userprofile_form_base.html', context_dict)
+
 class ProfileView(View):
     def get_user_details(self, username):
         try:
@@ -237,6 +255,10 @@ class ProfileView(View):
         except TypeError:
             return redirect(reverse('triptales:index'))
         
+        liked_posts = user_profile.liked_posts.all()
+        saved_posts = user_profile.saved_posts.all()
+        user_posts = user_profile.posts_made.all()
+        
         form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
 
         if form.is_valid():
@@ -247,6 +269,9 @@ class ProfileView(View):
         
         context_dict = {'user_profile': user_profile,
                         'selected_user': user,
+                        'liked_posts': liked_posts,
+                        'saved_posts': saved_posts,
+                        'user_posts': user_posts,
                         'form': form}
         
         return render(request, 'triptales/profile.html', context_dict)

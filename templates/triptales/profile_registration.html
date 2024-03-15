@@ -1,26 +1,9 @@
-{% extends 'triptales/base.html' %}
-{% load staticfiles %}
+{% extends 'triptales/userprofile_form_base.html' %}
 
-{% block title_block %}
+{% block form_h1 %}
     Complete your profile registration
-{% endblock title_block %}
+{% endblock %}
 
-{% block body_block %}
-<div class="jumbotron p-4">
-    <div class="container">
-        <h1 class="jumbotron-heading">Complete your profile registration</h1>
-    </div>
-</div>
+{% block form_action %}{% url 'triptales:register_profile' %}{% endblock %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form method="post" action="{% url 'triptales:register_profile' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Complete Registration" class="btn btn-primary">
-            </form>
-        </div>
-    </div>
-</div>
-{% endblock body_block %}
+{% block form_inputValue %}Complete registration{% endblock %}
