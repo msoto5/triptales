@@ -19,7 +19,7 @@
         Bio: {{ user_profile.bio }}
       </div>
 
-      {% if user_profile.picture != null %}
+      {% if user_profile.picture.name %}
         <div class="text-center mb-4">
           <img class="mb-4 img-fluid" src="{{ MEDIA_PROFILE_IMG_URL }}{{ user_profile.picture.url }}" alt="{{ selected_user.username }}'s profile image" />
         </div>

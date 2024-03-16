@@ -47,6 +47,7 @@ class UserProfileForm(forms.ModelForm):
 
 class VacationPostForm(forms.ModelForm):
     location = forms.ModelChoiceField(queryset=Location.objects.all().order_by('name'), empty_label="Select Location", required=False)
+    title = forms.CharField(help_text="Title")
     text = forms.CharField(help_text="Caption Here.")
     image = forms.ImageField(help_text="Please upload the image you wish to share")
 
@@ -62,7 +63,7 @@ class VacationPostForm(forms.ModelForm):
 
     class Meta:
         model = VacationPost
-        fields = ['text', 'image', 'location']
+        fields = ['title', 'text', 'image', 'location']
         widgets = {
             'text': forms.Textarea(attrs={'cols': 80, 'rows': 5}),
         }

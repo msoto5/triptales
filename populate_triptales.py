@@ -44,13 +44,12 @@ def populate():
     ]
 
     vacation_posts = [
-        {'text': 'This is the first post by user1.', 'author': 'user1', 'country': 'China', 'location': 'Beijing'},
-        {'text': 'This is the second post by user1.', 'author': 'user1', 'country': 'UK', 'location': 'London'},
-        {'text': 'This is the first post by user2.', 'author': 'user2', 'country': 'Japan', 'location': 'Tokyo'},
-        {'text': 'This is the second post by user2.', 'author': 'user2', 'country': 'Austria', 'location': 'Gmunden'},
-        {'text': 'This is the first post by user3.', 'author': 'user3', 'country': 'Canada', 'location': 'Toronto'},
-        {'text': 'This is the second post by user3.', 'author': 'user3', 'country': 'Switzerland',
-         'location': 'Geneva'},
+        {'title': 'Vacation Post 1', 'text': 'This is the first post by user1.', 'author': 'user1', 'country': 'China', 'location': 'Beijing'},
+        {'title': 'Vacation Post 2', 'text': 'This is the second post by user1.', 'author': 'user1', 'country': 'UK', 'location': 'London'},
+        {'title': 'Vacation Post 3', 'text': 'This is the first post by user2.', 'author': 'user2', 'country': 'Japan', 'location': 'Tokyo'},
+        {'title': 'Vacation Post 4', 'text': 'This is the second post by user2.', 'author': 'user2', 'country': 'Austria', 'location': 'Gmunden'},
+        {'title': 'Vacation Post 5', 'text': 'This is the first post by user3.', 'author': 'user3', 'country': 'Canada', 'location': 'Toronto'},
+        {'title': 'Vacation Post 6', 'text': 'This is the second post by user3.', 'author': 'user3', 'country': 'Switzerland', 'location': 'Geneva'},
     ]
 
     # Create
@@ -66,7 +65,7 @@ def populate():
             if post['author'] == user['username']:
                 country = Country.objects.get(name=post['country'])
                 location = Location.objects.get(name=post['location'])
-                add_post(post['text'], u, country, location)
+                add_post(post['title'], post['text'], u, country, location)
 
 
 def add_user(username, password, email):
@@ -76,9 +75,9 @@ def add_user(username, password, email):
     return user
 
 
-def add_post(text, author, country, location):
+def add_post(title, text, author, country, location):
     user = User.objects.get(username=author)
-    post = VacationPost.objects.get_or_create(text=text, author=user, country=country, location=location)[0]
+    post = VacationPost.objects.get_or_create(title=title, text=text, author=user, country=country, location=location)[0]
     post.likes = 0
     post.save()
     return post
@@ -107,3 +106,12 @@ def add_location(name, country, vibe, setting, partner, climate):
 if __name__ == '__main__':
     print('Starting TripTales population script...')
     populate()
+    print('TripTales population script complete. Objects in database:')
+    print('- Countries:', Country.objects.count())
+    print('- Locations:', Location.objects.count())
+    print('- Users:', User.objects.count())
+    print('- Profiles:', UserProfile.objects.count())
+    print('- Posts:', VacationPost.objects.count())
+    print('- Comments:', Comment.objects.count())
+
+

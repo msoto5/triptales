@@ -61,6 +61,9 @@ class Location(models.Model):
 
 
 class VacationPost(models.Model):
+    TITLE_MAX_LENGTH = 128
+    title = models.CharField(max_length=TITLE_MAX_LENGTH,
+                             default='Trip to ' + str(Location.name) + ', ' + str(Country.name))
     text = models.TextField()
     image = models.ImageField(upload_to=POST_IMG_DIR, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -69,7 +72,7 @@ class VacationPost(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return f'Post by {self.author.username}'
+        return f'{self.title} by {self.author.username}'
 
 
 class Comment(models.Model):

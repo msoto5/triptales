@@ -9,7 +9,7 @@ class locationAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 class postAdmin(admin.ModelAdmin):
-    list_display = ('text', 'author', 'likes')
+    list_display = ('title', 'text', 'author', 'likes')
 
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio',)
