@@ -2,45 +2,17 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    Homepage
     {% if user.is_authenticated %}
-                                howdy {{ user.username }}!
-                            {% else %}
-                                TripTales
-                            {% endif %}
+        Welcome: {{ user.username }}!
+    {% else %}
+        TripTales
+    {% endif %}
 {% endblock %}
 
 {% block body_block %}
-    <head>
-        <style>
 
-    .card-container {
-        height: 300px; 
-        width: 300px;
-    }
-         .continent-card {
-     background-size: cover; 
-     background-repeat: no-repeat;
-}       
-
-        .continent-card-text {
-            color: white;
-            text-align: center; 
-            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5)
-        }
-
-        .destinations-header {
-            color: #3B4282; 
-            text-align: center;
-        }
-
-    .quiz-container {
-        margin-top: 20px; 
-        border-top: 3px solid #3B4282;
-    }
-        </style>
-    </head>
-
+    <!-- Load page specific Stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/triptales/index.css' %}">
     
     <!-- Table with the continents -->
     <div class="container px-4 py-5" id="custom-cards">
@@ -106,58 +78,61 @@
                     </div>
                 </a>
             </div>
+        </div>
     </div>
 
     <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card md-6">
-                <div class="card-body">
-                    <h2>Most Liked Posts</h2>
-                    <p class="card-text">
-                    {% if categories %}
-                    <ul class="list-group">
-                    {% for category in categories %}
-                        <li class="list-group-item">
-                            <a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a>
-                        </li>
-                    {% endfor %}
-                    </ul>
-                    {% else %}
-                    <strong>There are no categories present.</strong>
-                    {% endif %}
-                    </p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card md-6">
+                    <div class="card-body">
+                        <h2>Most Liked Posts</h2>
+                        <p class="card-text">
+                        {% if categories %}
+                        <ul class="list-group">
+                        {% for category in categories %}
+                            <li class="list-group-item">
+                                <a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                        {% else %}
+                        <strong>There are no categories present.</strong>
+                        {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card md-6">
+                    <div class="card-body">
+                        <h2>Most Recent Posts</h2>
+                        <p class="card-text">
+                        {% if pages %}
+                        <ul class="list-group">
+                        {% for page in pages %}
+                            <li class="list-group-item">
+                                <a href="{{ page.url }}">{{ page.title }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                        {% else %}
+                        <strong>There are no pages present</strong>
+                        {% endif %}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card md-6">
-                <div class="card-body">
-                    <h2>Most Recent Posts</h2>
-                    <p class="card-text">
-                    {% if pages %}
-                    <ul class="list-group">
-                    {% for page in pages %}
-                        <li class="list-group-item">
-                            <a href="{{ page.url }}">{{ page.title }}</a>
-                        </li>
-                    {% endfor %}
-                    </ul>
-                    {% else %}
-                    <strong>There are no pages present</strong>
-                    {% endif %}
-                    </p>
-                </div>
+
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3 quiz-container">
+            <div class="container-fluid border rounded py-5 text-center shadow-lg" style="background-image: url('{% static 'images/quiz.webp' %}');">
+              <h1 class="display-5 fw-bold continent-card-text">Holiay Finder Quiz</h1>
+              <p class="fs-1 continent-card-text continent-card-text" style="font-weight: 600;">Unsure of where to go? Take our quiz!</p>
+              <button class="btn btn-primary btn-lg" type="button">Get Started</button>
             </div>
         </div>
+        
     </div>
-    
-    <div class="p-5 mb-4 bg-body-tertiary rounded-3 quiz-container">
-        <div class="container-fluid border rounded py-5 text-center shadow-lg" style="background-image: url('{% static 'images/quiz.webp' %}');">
-          <h1 class="display-5 fw-bold continent-card-text">Holiay Finder Quiz</h1>
-          <p class="fs-1 continent-card-text continent-card-text" style="font-weight: 600;">Unsure of where to go? Take our quiz!</p>
-          <button class="btn btn-primary btn-lg" type="button">Get Started</button>
-        </div>
-      </div>
-</div>
+
 {% endblock %}
