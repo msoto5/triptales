@@ -66,6 +66,38 @@ def create_post(request):
 
     return render(request, 'triptales/create_post.html', {'form': form, 'locations': locations})
 
+def add_country(request):
+
+    form = CountryForm()
+
+    if request.method == 'POST':
+        form = CountryForm(request.POST)
+        if form.is_valid():
+            country = form.save(commit=True)
+            country.posts = 0
+            country.views = 0
+            country.save()
+            return redirect(reverse('triptales:index'))
+        else:
+            print(form.errors)
+
+    return render(request, 'triptales/add_country.html', {'form': form })
+
+def add_location(request):
+    form = LocationForm()
+
+    if request.method == 'POST':
+        form = LocationForm(request.POST)
+        if form.is_valid():
+            location = form.save(commit=False)
+            location.posts = 0
+            location.views = 0
+            location.save()
+            return redirect(reverse('triptales:index'))
+        else:
+            print(form.errors)
+
+    return render(request, 'triptales/add_location.html', {'form':form})
 
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
@@ -169,7 +201,7 @@ def add_page(request, category_name_slug):
     #         print(form.errors)
 
     # context_dict = {'form': form, 'category': category}
-    # return render(request, 'triptales/add_page.html', context_dict)
+    # return render(request, 'triptales/add_location.html', context_dict)
 
 
 def goto_url(request):
@@ -290,3 +322,6 @@ class ProfileView(View):
                         'form': form}
 
         return render(request, 'triptales/profile.html', context_dict)
+
+
+
