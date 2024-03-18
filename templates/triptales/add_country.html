@@ -1,0 +1,25 @@
+{% extends 'triptales/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Add Country
+{% endblock %}
+
+{% block body_block %}
+    <p><strong>Country you've visited not on the website yet? You can add it here!</strong></p>
+    <div>
+    <form id="add_country_form" method="POST" action="{% url 'triptales:add_country' %}">
+    
+        {% csrf_token %}
+    
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}
+            {{ field }}    
+            <br>
+        {% endfor %}
+        <input type = "submit" name = "submit" value = "Add Country">
+    </form>
+    </div>
+    
+{% endblock %}

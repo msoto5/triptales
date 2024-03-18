@@ -24,4 +24,6 @@ urlpatterns = [
     path('register_profile/', views.register_profile, name='register_profile'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
     path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
+    path('add_country/', views.add_country, name='add_country'),
+    path('add_location/', views.add_location, name='add_location')
 ]
