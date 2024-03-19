@@ -2,120 +2,155 @@
 {% load staticfiles %}
 
 {% block title_block %}
-  Profile for {{ selected_user.username }}
+  {{ selected_user.username }} profile
 {% endblock %}
 
 {% block body_block %}
-  <div class="jumbotron p-4">
-    <div class="container">
-      <h1 class="jumbotron-heading">{{ selected_user.username }}'s Profile</h1>
-    </div>
-  </div>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/triptales/profile.css' %}">
 
   <div class="container">
-    <div class="row">
-      <div>
-        <strong>Bio:</strong>
-        Bio: {{ user_profile.bio }}
-      </div>
 
-      {% if user_profile.picture.name %}
-        <div class="text-center mb-4">
-          <img class="mb-4 img-fluid" src="{{ MEDIA_PROFILE_IMG_URL }}{{ user_profile.picture.url }}" alt="{{ selected_user.username }}'s profile image" />
-        </div>
-      {% else %}
-        No picture
-      {% endif %}
-
-      <br />
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card md-4">
-              <div class="card-body">
-                <h2>User Posts</h2>
-                <p class="card-text">
-                  {% if user_posts %}
-                    {{ user_posts|length }} posts<ul class="list-group">
-                      {% for post in user_posts %}
-                        <li class="list-group-item">
-                          <a href="{% url 'triptales:post_detail' post.id %}">{{ post.location.name }}</a>
-                        </li>
-                      {% endfor %}
-                    </ul>
+  <div class="row">
+    <div class="col-12">
+      <!-- Profile widget --> 
+      <div class="bg-white shadow rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-5 cover">
+          <div class="media align-items-end profile-head pb-5">
+            <div class='row'>
+              <div class="col-md-2">
+                <div class="profile mr-3">
+                  <div class="image-container">
+                  {% if user_profile.picture.name %}
+                    <img class="rounded mb-2 img-thumbnail" src="{{ MEDIA_PROFILE_IMG_URL }}{{ user_profile.picture.url }}" alt="{{ selected_user.username }}'s profile image" width="200" />
                   {% else %}
-                    {% if selected_user == user %}
-                      The posts you write will appear here. Click <a href="{% url 'triptales:create_post' %}">here</a> to write a new post.
-                    {% else %}
-                      {{ selected_user.username }} has not written any posts yet.
-                    {% endif %}
+                    <img class="rounded mb-2 img-thumbnail" src="{% static 'images/profile_default_img.png' %}" alt="Default profile image" width="200" />
                   {% endif %}
-                </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class='col-md-9'>
+                <div class="media-body mb-5 text-white">
+                  <h4 class="mt-0 mb-0">{{ selected_user.username }} </h4> <p class="small mb-4">
+                    <i class="fas fa-map-marker-alt mr-2">{{ user_profile.bio }}</i>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card md-4">
-              <div class="card-body">
-                <h2>Liked Posts</h2>
-                <p class="card-text">
-                  {% if liked_posts %}
-                    {{ liked_posts|length }} liked posts<ul class="list-group">
-                      {% for post in liked_posts %}
-                        <li class="list-group-item">
-                          <a href="{% url 'triptales:post_detail' post.id %}">{{ post.location.name }}</a>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% else %}
-                    {% if selected_user == user %}
-                      The posts you like will appear here.
-                    {% else %}
-                      {{ selected_user.username }} has not liked any posts yet.
-                    {% endif %}
-                  {% endif %}
-                </p>
+        </div> <div class="bg-light p-4 d-flex justify-content-center text-center">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">{{ user_posts|length }}</h5><small class="text-muted"><i class="fas fa-image mr-1"></i>Posts</small>
+            </li> <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">{{ liked_posts|length }}</h5><small class="text-muted"><i class="fas fa-user mr-1"></i>Like Posts</small>
+            </li> <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">{{ saved_posts|length }}</h5><small class="text-muted"><i class="fas fa-user mr-1"></i>Saved Posts</small>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="px-4 py-3">
+          <h5 class="mb-0">Biography</h5>
+          <div class="p-4 rounded shadow-sm bg-light">
+            {% if user_profile.bio %}
+              <p class="font-italic mb-0">{{ user_profile.bio }}</p>
+            {% else %}
+              <p class="font-italic mb-0">This user has not written a bio yet.</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="py-4 d-flex justify-content-center">
+          {% if selected_user == user %}
+          <a href="{% url 'triptales:edit_profile' %}" class="btn btn-sm btn-block">
+            <button class="button-nav" role="button">Edit profile</button>
+          </a>
+          <a href="{% url 'auth_password_change' %}" class="btn btn-sm btn-block">
+            <button class="button-nav" role="button">Change Password</button>
+          </a>
+          {% endif %}
+        </div>
+
+        <div class="row py-4 px-4">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card md-4">
+                  <div class="card-body">
+                    <h2>User Posts</h2>
+                    <p class="card-text">
+                      {% if user_posts %}
+                        {{ user_posts|length }} posts<ul class="list-group">
+                          {% for post in user_posts %}
+                            <li class="list-group-item">
+                              <a href="{% url 'triptales:post_detail' post.id %}">{{ post.location.name }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% else %}
+                        {% if selected_user == user %}
+                          The posts you write will appear here. Click <a href="{% url 'triptales:create_post' %}">here</a> to write a new post.
+                        {% else %}
+                          {{ selected_user.username }} has not written any posts yet.
+                        {% endif %}
+                      {% endif %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card md-4">
+                  <div class="card-body">
+                    <h2>Liked Posts</h2>
+                    <p class="card-text">
+                      {% if liked_posts %}
+                        {{ liked_posts|length }} liked posts<ul class="list-group">
+                          {% for post in liked_posts %}
+                            <li class="list-group-item">
+                              <a href="{% url 'triptales:post_detail' post.id %}">{{ post.location.name }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% else %}
+                        {% if selected_user == user %}
+                          The posts you like will appear here.
+                        {% else %}
+                          {{ selected_user.username }} has not liked any posts yet.
+                        {% endif %}
+                      {% endif %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card md-4">
+                  <div class="card-body">
+                    <h2>Saved Posts</h2>
+                    <p class="card-text">
+                      {% if saved_posts %}
+                        {{ saved_posts|length }} saved posts<ul class="list-group">
+                          {% for post in saved_posts %}
+                            <li class="list-group-item">
+                              <a href="{% url 'triptales:post_detail' post.id %}">{{ post.location.name }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% else %}
+                        {% if selected_user == user %}
+                          The posts you save will appear here.
+                        {% else %}
+                          {{ selected_user.username }} has not saved any posts yet.
+                        {% endif %}
+                      {% endif %}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card md-4">
-              <div class="card-body">
-                <h2>Saved Posts</h2>
-                <p class="card-text">
-                  {% if saved_posts %}
-                    {{ saved_posts|length }} saved posts<ul class="list-group">
-                      {% for post in saved_posts %}
-                        <li class="list-group-item">
-                          <a href="{% url 'triptales:post_detail' post.id %}">{{ post.location.name }}</a>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% else %}
-                    {% if selected_user == user %}
-                      The posts you save will appear here.
-                    {% else %}
-                      {{ selected_user.username }} has not saved any posts yet.
-                    {% endif %}
-                  {% endif %}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="right_nav">
-        <div class="child2">
-          <a href="{% url 'triptales:edit_profile' %}"><button class="button-nav" role="button">Edit profile</button></a>
-        </div>
-      </div>
-
-      <div class="right_nav">
-        <div class="child2">
-          <a href="{% url 'auth_password_change' %}"><button class="button-nav" role="button">Change Password</button></a>
         </div>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
