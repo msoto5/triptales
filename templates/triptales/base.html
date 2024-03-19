@@ -21,6 +21,9 @@
         
         <!-- Base Stylesheet -->
         <link rel="stylesheet" href="{% static 'css/triptales/triptalesstyle.css' %}">
+
+        {% comment %} Stylesheets for extensions htmls {% endcomment %}
+        {% block extra_css %}{% endblock %}
     </head>
     
     <body>

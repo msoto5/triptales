@@ -5,11 +5,13 @@
   {{ selected_user.username }} profile
 {% endblock %}
 
-{% block body_block %}
+{% block extra_css %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/triptales/profile.css' %}">
+{% endblock %}
 
-  <div class="container">
-
+{% block body_block %}
+{% comment %}Inspired by https://bbbootstrap.com/snippets/individual-user-profile-social-network-94176986 {% endcomment %}
+<div class="container">
   <div class="row">
     <div class="col-12">
       <!-- Profile widget --> 
@@ -38,7 +40,8 @@
               </div>
             </div>
           </div>
-        </div> <div class="bg-light p-4 d-flex justify-content-center text-center">
+        </div>
+        <div class="bg-light p-4 d-flex justify-content-center text-center">
           <ul class="list-inline mb-0">
             <li class="list-inline-item">
               <h5 class="font-weight-bold mb-0 d-block">{{ user_posts|length }}</h5><small class="text-muted"><i class="fas fa-image mr-1"></i>Posts</small>
