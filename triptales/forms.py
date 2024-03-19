@@ -3,26 +3,36 @@ from django import forms
 from triptales.models import Country, Location, VacationPost, UserProfile, Comment
 from django.contrib.auth.models import User
 
+
 class CountryForm(forms.ModelForm):
     name = forms.CharField(help_text="Please enter the name of the country.")
-    continent = forms.CharField(help_text="Please enter the continent of this country.")
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Country
         fields = ('name', 'continent')
+        help_texts = {
+            'continent': 'Please select the continent of the country.'}
 
 
 class LocationForm(forms.ModelForm):
     name = forms.CharField(help_text="Please enter the name of the location.")
-    country = forms.ModelChoiceField(queryset=Country.objects)
+    country = forms.ModelChoiceField(queryset=Country.objects.all().order_by('name'),
+                                     help_text="Please choose the country where this location is.")
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     vibe = forms.RadioSelect()
     setting = forms.RadioSelect()
-    travelPartner = forms.RadioSelect()
+    travelPartners = forms.RadioSelect()
     climate = forms.RadioSelect()
 
     class Meta:
         model = Location
         exclude = ('views', 'posts')
+        help_texts = {'vibe': 'What kind of vibe does this place give off?',
+                      'setting': 'What type of setting is it?',
+                      'travelPartners': 'What kind of partner would you recommend to get the most out of this holiday?',
+                      'climate': 'What is the weather like here?', }
+
 
 class CommentForm(forms.ModelForm):
     text = forms.CharField(help_text="")
@@ -31,6 +41,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('text',)
 
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -38,8 +49,8 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password')
 
-class UserProfileForm(forms.ModelForm):
 
+class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('picture', 'bio')
@@ -53,7 +64,8 @@ class VacationPostForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(VacationPostForm, self).__init__(*args, **kwargs)
-        self.fields['location'].queryset = Location.objects.all().order_by('name')  # Set the queryset for the location field
+        self.fields['location'].queryset = Location.objects.all().order_by(
+            'name')  # Set the queryset for the location field
 
     def clean_location(self):
         location = self.cleaned_data['location']
