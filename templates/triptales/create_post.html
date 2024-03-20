@@ -63,117 +63,86 @@
         display: inline-block;
     }
     
-    /* Add rounded corners to the form */
-.card {
-    border-radius: 15px;
-}
-
-/* Style the form header */
-.card-header {
-    background-color: #f0f0f0;
-    border-bottom: 1px solid #ddd;
-    border-radius: 15px 15px 0 0;
-}
-
-/* Style the form body */
-.card-body {
-    padding: 20px;
-}
-
-/* Style the user info section */
-.user-info {
-    margin-bottom: 20px;
-}
-
-/* Style the form group */
-.form-group {
-    margin-bottom: 20px;
-}
-
-/* Style the title label */
-label[for="title"] {
-    font-weight: bold;
-}
-
-/* Style the text area */
-textarea {
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    resize: vertical;
-}
-
-/* Style the file upload label */
-.custom-file-upload {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-/* Style the submit button */
-input[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Hover effect for submit button */
-input[type="submit"]:hover {
-    background-color: #000000;
-}
-
-/* Hide the default file input button */
-input[type="file"] {
-    display: none;
-}
-.photo-preview {
-    margin-top: 10px;
-    max-width: 100px; 
-    max-height: 100px; 
-    display: inline-block; 
-    vertical-align: top; 
-    margin-left: 10px; 
-}
-
-.custom-file-upload {
-    background-color: #007bff; 
-    color: white; 
-    border-radius: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-.custom-file-upload:hover {
-    background-color: #0056b3; 
-}
-
-
-
-
+    .card {
+        border-radius: 15px;
+    }
+    
+    
+    .card-header {
+        background-color: #f0f0f0;
+        border-bottom: 1px solid #ddd;
+        border-radius: 15px 15px 0 0;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .user-info {
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    label[for="title"] {
+        font-weight: bold;
+    }
+    
+    textarea {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        resize: vertical;
+    }
+    
+    .custom-file-upload {
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+        background-color: #000000;
+    }
+    
+    
+    input[type="file"] {
+        display: none;
+    }
+    .photo-preview {
+        margin-top: 10px;
+        max-width: 100px; 
+        max-height: 100px; 
+        display: inline-block; 
+        vertical-align: top; 
+        margin-left: 10px; 
+    }
+    
+    .custom-file-upload {
+        background-color: #007bff; 
+        color: white; 
+        border-radius: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    
+    .custom-file-upload:hover {
+        background-color: #0056b3; 
+    }
 </style>
 {% endblock %}
 
-{% block extra_js %}
-<script>
-    document.getElementById('photo-upload').onchange = function () {
-        var preview = document.getElementById('photo-preview');
-        preview.innerHTML = ''; // Clear previous previews
 
-        for (var i = 0; i < this.files.length; i++) {
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                var img = document.createElement('img');
-                img.src = event.target.result;
-                img.classList.add('img-thumbnail'); // Optional: add Bootstrap class for styling
-                preview.appendChild(img);
-            }
-            reader.readAsDataURL(this.files[i]);
-        }
-    };
-</script>
-{% endblock %}
 

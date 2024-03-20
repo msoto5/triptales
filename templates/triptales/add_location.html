@@ -6,20 +6,81 @@
 {% endblock %}
 
 {% block body_block %}
-    <h2>Location you've visited not on the website yet? You can add it here!</h2>
+    <br>
+    <h2>Location you've visited not on the website yet? Add it here!</h2>
     <div>
-    <form id="add_country_form" method="POST" action="{% url 'triptales:add_location' %}">
+    <form id="add_location_form" method="POST" action="{% url 'triptales:add_location' %}">
     
         {% csrf_token %}
     
         {% for field in form.visible_fields %}
             {{ field.errors }}
-            {{ field.help_text }}
+            <p class = "help-text" >{{ field.help_text  }}</p> 
             {{ field }}    
             <br>
         {% endfor %}
+    <br>
         <input type = "submit" name = "submit" value = "Add Location">
     </form>
     </div>
     
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+    #add_location_form input[type="text"],
+#add_location_form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#add_location_form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px; 
+}
+
+#add_location_form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 36px;
+    color: #023060; 
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#add_location_form .errorlist {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+#add_location_form .form-control {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+#add_location_form .help-text {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+#add_location_form div {
+    margin-top: 20px;
+}
+
+    </style>
 {% endblock %}
