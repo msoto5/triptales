@@ -142,7 +142,7 @@
                     {% endfor %}
                 </div>
             </div>
-        </div> {% endcomment %}
+        </div>
 
         <div class="p-5 mb-4 bg-body-tertiary rounded-3 quiz-container">
             <div class="container-fluid border rounded py-5 text-center shadow-lg" style="background-image: url('{% static 'images/quiz.webp' %}');">
@@ -155,16 +155,6 @@
     </div>
         </div>
     </div>
-    <div class="p-5 mb-4 bg-body-tertiary rounded-3 quiz-container">
-        <div class="container-fluid border rounded py-5 text-center shadow-lg"
-            style="background-image: url('{% static 'images/quiz.webp' %}');">
-            <h1 class="display-5 fw-bold continent-card-text">Holiay Finder Quiz</h1>
-            <p class="fs-1 continent-card-text continent-card-text" style="font-weight: 600;">Unsure of where to go?
-                Take our quiz!</p>
-            <button class="btn btn-primary btn-lg" type="button">Get Started</button>
-        </div>
-    </div>
-
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
@@ -173,6 +163,8 @@
     loadPosts('recent', '#recent-posts-container');
 });
 
+
+//gets the posts to be loaded into most liked/recent posted sections
 function loadPosts(type, containerId) {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {

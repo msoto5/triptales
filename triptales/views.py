@@ -353,7 +353,9 @@ def filter_sort_by(request, sort_type, filter_type, continent):
     elif sort_type == "sort-recent":
         posts = posts.order_by('-created_at')
     posts_data = [{'id': post.id, 'title': post.title, 'likes': post.likes, 'text': post.text, 'author': post.author.username, 'country_name': post.country.name, 'location_name': post.location.name, 'created_at': post.created_at} for post in posts]
-    return JsonResponse(posts_data, safe=False)class LikePostView(View):
+    return JsonResponse(posts_data, safe=False)
+
+class LikePostView(View):
     @method_decorator(login_required)
     def get(self, request):
         post_id = request.GET['post_id']
