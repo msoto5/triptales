@@ -1,3 +1,5 @@
+@import url("dropdown_menu.css");
+
 .header-list {
     margin-left: 20px;
     margin-right: 20px;
@@ -24,4 +26,10 @@ html {
 /* Colour of footer nav button text */
 .nav {
     --bs-nav-link-color: #272727;
+}
+
+:root::-webkit-scrollbar {
+    overflow-y: scroll;
+    width: 0;
+    height: 0;
 }

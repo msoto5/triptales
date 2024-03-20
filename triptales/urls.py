@@ -26,4 +26,5 @@ urlpatterns = [
     path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
     path('add_country/', views.add_country, name='add_country'),
     path('add_location/', views.add_location, name='add_location'),
+    path('like_post/', views.LikePostView.as_view(), name='like_post'),
 ]
