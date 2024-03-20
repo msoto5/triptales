@@ -3,7 +3,7 @@
 
 {% block title_block %}
     {% if user.is_authenticated %}
-        Welcome: {{ user.username }}!
+        Triptales - Welcome {{ user.username }}!
     {% else %}
         TripTales
     {% endif %}
@@ -82,6 +82,7 @@
     </div>
 
     <div class="container">
+        {% comment %} FROM RANGO, NEEDS TO BE CHANGED
         <div class="row">
             <div class="col-md-6">
                 <div class="card md-6">
@@ -123,7 +124,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
 
         <div class="p-5 mb-4 bg-body-tertiary rounded-3 quiz-container">
             <div class="container-fluid border rounded py-5 text-center shadow-lg" style="background-image: url('{% static 'images/quiz.webp' %}');">
