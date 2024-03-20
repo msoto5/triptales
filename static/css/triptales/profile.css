@@ -17,6 +17,10 @@ body {
     overflow-x:hidden;
 }
 
+#full-page-gradient {
+    background-image: linear-gradient(to right, #e96443, #904e95);
+}
+
 .image-container {
     display: flex;
     height: 100px; /* Adjust as needed */
@@ -26,4 +30,12 @@ body {
 .image-container img {
     height: auto;
     width: auto;
+}
+
+.pad_profile {
+    padding: 20px;
+}
+
+.translucent {
+    opacity: 0.8;
 }
