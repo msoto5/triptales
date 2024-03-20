@@ -57,6 +57,7 @@ def create_post(request):
             post.likes = 0
             currentLocation = Location.objects.get(id=post.location.id)
             post.country = currentLocation.country
+            post.title
             post.save()
             form.save_m2m()
             return redirect(reverse('triptales:index'))  # Redirect to the desired page after successful form submission
