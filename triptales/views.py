@@ -66,6 +66,7 @@ def create_post(request):
 
     return render(request, 'triptales/create_post.html', {'form': form, 'locations': locations})
 
+@login_required
 def add_country(request):
 
     form = CountryForm()
@@ -83,6 +84,7 @@ def add_country(request):
 
     return render(request, 'triptales/add_country.html', {'form': form })
 
+@login_required
 def add_location(request):
     form = LocationForm()
 
