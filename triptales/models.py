@@ -4,13 +4,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from triptales_project.settings import PROFILE_IMG_DIR, POST_IMG_DIR
+from django.utils import timezone
 
 
 class Country(models.Model):
     name = models.CharField(max_length=128, unique=True)
     posts = models.PositiveIntegerField(default=0)
     views = models.PositiveIntegerField(default=0)
-    continent = models.CharField(max_length=10, choices=(("Europe", "Europe"),
+    continent = models.CharField(max_length=15, choices=(("Europe", "Europe"),
                                                          ("Asia", "Asia"),
                                                          ("South America", "South America"),
                                                          ("North America", "North America"),
@@ -70,6 +71,7 @@ class VacationPost(models.Model):
     likes = models.PositiveIntegerField(default=0)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'{self.title} by {self.author.username}'

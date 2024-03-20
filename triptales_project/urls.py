@@ -34,10 +34,11 @@ class MyRegistrationView(RegistrationView):
 
     
 urlpatterns = [
+    path('get_all_posts/<str:type>/', views.get_all_posts, name='get_all_posts'),
+    path('filter_sort_by/<str:sort_type>/<str:filter_type>/<str:continent>/', views.filter_sort_by, name='filter_sort_by'),
     path('', views.index, name='index'),
     path('triptales/', include('triptales.urls')),
     path('admin/', admin.site.urls),
-
     path('accounts/register/', MyRegistrationView.as_view(), name='registration_register'),
     path('accounts/', include('registration.backends.simple.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
