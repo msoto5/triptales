@@ -40,7 +40,10 @@ def posts_by_continent(request, continent_name):
 
 def post_detail(request, post_id):
     post = get_object_or_404(VacationPost, pk=post_id)
-    context = {'post': post}
+
+    current_userprofile = UserProfile.objects.get_or_create(user=request.user)[0]
+    is_liked = True if post in current_userprofile.liked_posts.all() else False
+    context = {'post': post, 'is_liked': is_liked}
     return render(request, 'triptales/post_detail.html', context)
 
 
@@ -57,6 +60,7 @@ def create_post(request):
             post.likes = 0
             currentLocation = Location.objects.get(id=post.location.id)
             post.country = currentLocation.country
+            post.title
             post.save()
             form.save_m2m()
             return redirect(reverse('triptales:index'))  # Redirect to the desired page after successful form submission
@@ -66,6 +70,7 @@ def create_post(request):
 
     return render(request, 'triptales/create_post.html', {'form': form, 'locations': locations})
 
+@login_required
 def add_country(request):
 
     form = CountryForm()
@@ -83,6 +88,7 @@ def add_country(request):
 
     return render(request, 'triptales/add_country.html', {'form': form })
 
+@login_required
 def add_location(request):
     form = LocationForm()
 
@@ -324,4 +330,25 @@ class ProfileView(View):
         return render(request, 'triptales/profile.html', context_dict)
 
 
+class LikePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        post_id = request.GET['post_id']
+        try:
+            post = VacationPost.objects.get(id=int(post_id))
+        except VacationPost.DoesNotExist or ValueError:
+            return HttpResponse(-1)
 
+        user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
+
+        if post in user_profile.liked_posts.all():
+            user_profile.liked_posts.remove(post)
+            post.likes -= 1
+            post.save()
+            return HttpResponse(post.likes)
+        
+        user_profile.liked_posts.add(post)
+        post.likes += 1
+        post.save()
+
+        return HttpResponse(post.likes)

@@ -15,6 +15,7 @@ class CountryForm(forms.ModelForm):
             'continent': 'Please select the continent of the country.'}
 
 
+
 class LocationForm(forms.ModelForm):
     name = forms.CharField(help_text="Please enter the name of the location.")
     country = forms.ModelChoiceField(queryset=Country.objects.all().order_by('name'),
@@ -30,7 +31,7 @@ class LocationForm(forms.ModelForm):
         exclude = ('views', 'posts')
         help_texts = {'vibe': 'What kind of vibe does this place give off?',
                       'setting': 'What type of setting is it?',
-                      'travelPartners': 'What kind of partner would you recommend to get the most out of this holiday?',
+                      'travelPartners': 'What kind of partner is most suitable?',
                       'climate': 'What is the weather like here?', }
 
 

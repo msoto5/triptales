@@ -3,7 +3,7 @@
 
 {% block title_block %}
     {% if user.is_authenticated %}
-        Welcome: {{ user.username }}!
+        Triptales - Welcome {{ user.username }}!
     {% else %}
         TripTales
     {% endif %}
@@ -30,7 +30,7 @@
             </div>
         
         <div class="col card-container">
-            <a href="{% url 'triptales:posts_by_continent' continent_name='northamerica.png'%}" style="text-decoration:none" >
+            <a href="{% url 'triptales:posts_by_continent' continent_name='north america.png'%}" style="text-decoration:none" >
                 <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/northamerica.webp' %}');">
                     <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                         <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">North America</h2>
@@ -60,7 +60,7 @@
             </div>
       
             <div class="col card-container">
-                <a href="{% url 'triptales:posts_by_continent' continent_name='southamerica.png'%}" style="text-decoration:none" >
+                <a href="{% url 'triptales:posts_by_continent' continent_name='south america.png'%}" style="text-decoration:none" >
                     <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/southamerica.webp' %}');">
                         <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                             <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">South America</h2>
@@ -70,7 +70,7 @@
             </div>
       
             <div class="col card-container">
-                <a href="{% url 'triptales:posts_by_continent' continent_name='aus.png'%}" style="text-decoration:none" >
+                <a href="{% url 'triptales:posts_by_continent' continent_name='oceania.png'%}" style="text-decoration:none" >
                     <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg continent-card" style="background-image: url('{% static 'images/aus.webp' %}');">
                         <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                             <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold continent-card-text">Oceania</h2>
@@ -82,6 +82,7 @@
     </div>
 
     <div class="container">
+        {% comment %} FROM RANGO, NEEDS TO BE CHANGED
         <div class="row">
             <div class="col-md-6">
                 <div class="card md-6">
@@ -123,7 +124,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
 
         <div class="p-5 mb-4 bg-body-tertiary rounded-3 quiz-container">
             <div class="container-fluid border rounded py-5 text-center shadow-lg" style="background-image: url('{% static 'images/quiz.webp' %}');">

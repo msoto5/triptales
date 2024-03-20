@@ -10,7 +10,7 @@ class Country(models.Model):
     name = models.CharField(max_length=128, unique=True)
     posts = models.PositiveIntegerField(default=0)
     views = models.PositiveIntegerField(default=0)
-    continent = models.CharField(max_length=10, choices=(("Europe", "Europe"),
+    continent = models.CharField(max_length=15, choices=(("Europe", "Europe"),
                                                          ("Asia", "Asia"),
                                                          ("South America", "South America"),
                                                          ("North America", "North America"),
