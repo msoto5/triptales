@@ -11,6 +11,7 @@ from triptales.forms import *
 from triptales.models import *
 from django.views import View
 from django.utils.decorators import method_decorator
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -33,6 +34,7 @@ def posts_by_continent(request, continent_name):
     context_dict = {
         'continent_name': continent_name,
         'posts': posts,
+        'countries': countries,
     }
 
     return render(request, 'triptales/posts_by_continent.html', context=context_dict)
@@ -40,7 +42,13 @@ def posts_by_continent(request, continent_name):
 
 def post_detail(request, post_id):
     post = get_object_or_404(VacationPost, pk=post_id)
-    context = {'post': post}
+
+    if request.user.is_authenticated:
+        current_userprofile = UserProfile.objects.get_or_create(user=request.user)[0]
+        is_liked = True if post in current_userprofile.liked_posts.all() else False
+    else:
+        is_liked = False
+    context = {'post': post, 'is_liked': is_liked}
     return render(request, 'triptales/post_detail.html', context)
 
 
@@ -57,6 +65,7 @@ def create_post(request):
             post.likes = 0
             currentLocation = Location.objects.get(id=post.location.id)
             post.country = currentLocation.country
+            post.title
             post.save()
             form.save_m2m()
             return redirect(reverse('triptales:index'))  # Redirect to the desired page after successful form submission
@@ -325,5 +334,49 @@ class ProfileView(View):
 
         return render(request, 'triptales/profile.html', context_dict)
 
+def get_all_posts(request, type):
+    if type == "likes":
+        posts = VacationPost.objects.order_by('-likes')[:6] #number of posts displayed on page can be altered 
+    if type == "recent":
+        posts = VacationPost.objects.order_by('-created_at')[:6]
+    posts_data = [{'id': post.id, 'title': post.title, 'likes': post.likes, 'text': post.text, 'author': post.author.username, 'country_name': post.country.name, 'location_name': post.location.name, 'created_at': post.created_at} for post in posts]
+    response_data = {'posts': posts_data}
+    return JsonResponse(response_data, safe=False)
 
 
+def filter_sort_by(request, sort_type, filter_type, continent):
+    countries = Country.objects.filter(continent__iexact=continent)
+    if filter_type != "none":
+        countries = countries.filter(id=filter_type)
+    posts = VacationPost.objects.filter(country__in=countries).distinct()
+    if sort_type == "sort-liked":
+        posts = posts.order_by('-likes')
+    elif sort_type == "sort-oldest":
+        posts = posts.order_by('created_at')
+    elif sort_type == "sort-recent":
+        posts = posts.order_by('-created_at')
+    posts_data = [{'id': post.id, 'title': post.title, 'likes': post.likes, 'text': post.text, 'author': post.author.username, 'country_name': post.country.name, 'location_name': post.location.name, 'created_at': post.created_at} for post in posts]
+    return JsonResponse(posts_data, safe=False)
+
+class LikePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        post_id = request.GET['post_id']
+        try:
+            post = VacationPost.objects.get(id=int(post_id))
+        except VacationPost.DoesNotExist or ValueError:
+            return HttpResponse(-1)
+
+        user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
+
+        if post in user_profile.liked_posts.all():
+            user_profile.liked_posts.remove(post)
+            post.likes -= 1
+            post.save()
+            return HttpResponse(post.likes)
+        
+        user_profile.liked_posts.add(post)
+        post.likes += 1
+        post.save()
+
+        return HttpResponse(post.likes)

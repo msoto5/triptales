@@ -1,3 +1,5 @@
+@import url("dropdown_menu.css");
+
 /* DON'T USE H6 for anything else, need it for title*/
 h6 {
     color:#ffffff;
@@ -9,6 +11,7 @@ h6 {
   .nava {
     height: 60px;
     background-image: radial-gradient(100% 100% at 50% 50%, #44a0ba 0, #3d4cba 100%);
+    filter:saturate(1)
   }
   
   /* TripTales logo text*/

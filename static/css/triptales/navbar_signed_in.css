@@ -1,11 +1,11 @@
 @import url("navbar_base.css");
 
 :root {
-  --scale: calc((100vw - 325px) / 335); /* 660 - x = 325 | x = 335px */
-  --scale-il: calc((100vw - 660px) / 220); /* 880 - x = 660 | x = 220px */
+  --scale: calc((100vw - 300px) / 250); /* 550 - x = 300 | x = 250px */
+  --scale-il: calc((100vw - 550px) / 200); /* 750 - x = 550 | x = 200px */
 }
 
-@media (max-width: 880px) {
+@media (max-width: 750px) {
 
   .left_nav div {
     padding: 0px;
@@ -28,7 +28,7 @@
   }
 }
 
-@media (max-width: 660px) {
+@media (max-width: 550px) {
   .nava {
       height: 120px;
   }
@@ -43,26 +43,26 @@
 
   .left_nav div {
     padding: 0px;
-    padding-left: calc(3px + calc(10 * var(--scale)));
-    padding-right: calc(3px + calc(10 * var(--scale)));
-    padding-top: calc(10px - calc(10 * var(--scale)));
+    padding-left: calc(3px + calc(9 * var(--scale)));
+    padding-right: calc(3px + calc(9 * var(--scale)));
+    padding-top: calc(10px - calc(9 * var(--scale)));
   }
   .right_nav div {
     padding: 0px;
-    padding-left: calc(3px + calc(10 * var(--scale)));
-    padding-right: calc(3px + calc(10 * var(--scale)));
-    padding-top: calc(10px - calc(10 * var(--scale)));
+    padding-left: calc(3px + calc(9 * var(--scale)));
+    padding-right: calc(3px + calc(9 * var(--scale)));
+    padding-top: calc(10px - calc(9 * var(--scale)));
   }
   .button-nav {
     border-radius: 6px;
     height: calc(32px + calc(8 * var(--scale)));
-    padding-left: calc(8px + calc(16 * var(--scale)));
-    padding-right: calc(8px + calc(16 * var(--scale)));
+    padding-left: calc(8px + calc(14 * var(--scale)));
+    padding-right: calc(8px + calc(14 * var(--scale)));
     font-size: calc(12px + calc(4 * var(--scale)));
   }
 }
 
-@media (max-width: 325px) {
+@media (max-width: 300px) {
 
   .left_nav div {
     padding: 0px;
@@ -84,9 +84,9 @@
     font-size: 12px;
   }
   html {
-    min-width: 308px;
+    min-width: 290px;
   }
   .title-nav {
-    left: calc((325px - 100vw) / 2)
+    left: calc((300px - 100vw) / 2)
   }
 }

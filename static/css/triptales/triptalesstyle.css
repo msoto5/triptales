@@ -25,3 +25,9 @@ html {
 .nav {
     --bs-nav-link-color: #272727;
 }
+
+:root::-webkit-scrollbar {
+    overflow-y: scroll;
+    width: 0;
+    height: 0;
+}
