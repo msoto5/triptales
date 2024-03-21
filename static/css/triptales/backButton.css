@@ -1,0 +1,28 @@
+.sorts {
+    padding-left: 10px; 
+    padding-right: 10px;
+}
+
+.nava-sorts {
+    height: 60px;
+    background-image: linear-gradient(#4F74B5 0, #6d89b9 100%);
+}
+
+.center_sorts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.back-button {
+    color: black
+    font-size: 25px;
+    font-weight: 500;
+    background-color: #b8ebff;
+    border-radius: 6px;
+    padding: 6px;
+    border: none;
+}
