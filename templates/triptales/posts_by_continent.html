@@ -6,20 +6,32 @@
 {% endblock %}
 
 {% block body_block %}
-<div><label for="sorting">Sort:</label>
-<select id="sort-type">
-  <option value="default">default</option>
-  <option selected="selected" value="sort-recent">newest</option>
-  <option value="sort-liked">most liked</option>
-  <option value="sort-oldest">oldest</option>
-</select>
-<label for="filter">Filter:</label>
-<select id="filter-type">
-    <option selected="selected" value="none">None</option>
-    {% for country in countries %}
-        <option value="{{ country.id }}">{{ country.name }}</option>
-    {% endfor %}
-  </select>
+<!-- Load page specific Stylesheet-->
+<link rel="stylesheet" href="{% static 'css/triptales/sortsFilters.css' %}">
+
+<div class="nava-sorts">
+    <div class="center_sorts">
+        <div class="sorts">
+            <label for="sorting" class="label-text">Sort: </label>
+            <select id="sort-type" class="sort-boxes">
+                <option value="default">Default</option>
+                <option selected="selected" value="sort-recent">Newest</option>
+                <option value="sort-liked">Most liked</option>
+                <option value="sort-oldest">Oldest</option>
+            </select>
+        </div>
+        <div class="sorts">
+            <label for="filter" class="label-text">Filter: </label>
+            <select id="filter-type" class="sort-boxes">
+                <option selected="selected" value="none">None</option>
+                {% for country in countries %}
+                    <option value="{{ country.id }}">{{ country.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+
 <div class="container mt-5">
     <h2 class="text-center">{{ continent_name }}</h2>
     <div class="row" id="posts-container">
