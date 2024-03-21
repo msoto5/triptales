@@ -12,7 +12,7 @@ function generatePost(post, formattedCreatedAt) {
     html += '<p class="card-text">' + post.text + '</p>'; 
     html += '<p class="card-date">Created at: ' + formattedCreatedAt + '</p>';
     html += '<p class="likes">Likes: ' + post.likes + '</p>';
-    html += '<a href="/triptales/profile/' + post.author.username + '" class="card-link">By ' + post.author.username + '</a>';
+    html += '<a href="/triptales/profile/' + post.author + '" class="card-link">By ' + post.author + '</a>';
     html += '</div></div></a></div>';
     return html;
 }
