@@ -43,8 +43,11 @@ def posts_by_continent(request, continent_name):
 def post_detail(request, post_id):
     post = get_object_or_404(VacationPost, pk=post_id)
 
-    current_userprofile = UserProfile.objects.get_or_create(user=request.user)[0]
-    is_liked = True if post in current_userprofile.liked_posts.all() else False
+    if request.user.is_authenticated:
+        current_userprofile = UserProfile.objects.get_or_create(user=request.user)[0]
+        is_liked = True if post in current_userprofile.liked_posts.all() else False
+    else:
+        is_liked = False
     context = {'post': post, 'is_liked': is_liked}
     return render(request, 'triptales/post_detail.html', context)
 
