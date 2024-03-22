@@ -1,47 +1,16 @@
 {% extends "triptales/base.html" %}
-{% load static %}
+
 {% block title_block %}
     {{ post.title }}
 {% endblock %}
 
 {% block body_block %}
-<link rel="stylesheet" href="{% static 'css/triptales/backButton.css' %}">
-
-<div class="nava-sorts">
-    <div class="center_sorts">
-        <div class="sorts">
-            <button onclick="window.history.back()" class="back-button">Back</button>
-        </div>
-    </div>
-</div>
     <h1>{{ post.title }}</h1>
     <div>
         <p>Post by {{ post.author }}</p>
         <p>Country: {{ post.country }}</p>
         <p>Location: {{ post.location }}</p>
-
-        <div>
-            <p>Likes:
-                <p id="like_count"> {{ post.likes }}</p>
-            </p>
-            
-            {% if user.is_authenticated %}
-                {% if is_liked %}
-                <button id="like_btn" data-postid="{{ post.id }}" 
-                        class="btn btn-primary btn-sm likebutton-liked" type="button">
-                    <span data-feather="thumbs-down"></span>
-                    Unlike Post
-                </button>
-                {% else %}
-                <button id="like_btn" data-postid="{{ post.id }}" 
-                        class="btn btn-primary btn-sm" type="button">
-                    <span data-feather="thumbs-up"></span>
-                    Like Post
-                </button>
-                {% endif %}
-            {% endif %}
-        </div>
-        
+        <p>Likes: {{ post.likes }}</p>
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="Post images">
         {% endif %}
