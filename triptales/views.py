@@ -137,6 +137,10 @@ def about(request):
     visitor_cookie_handler(request)
     return render(request, 'triptales/about.html')
 
+def quiz(request):
+    visitor_cookie_handler(request)
+    return render(request, 'triptales/quiz.html')
+
 
 def FAQ(request):
     visitor_cookie_handler(request)
@@ -226,10 +230,6 @@ def goto_url(request):
     #         return redirect(selected_page.url)
     #     except Page.DoesNotExist:
     #         return redirect(reverse('triptales:index'))
-
-
-def quiz(request):
-    return HttpResponse("Not implemented yet.")
 
 
 def basetest(request, continent):

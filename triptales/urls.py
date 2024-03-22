@@ -9,6 +9,7 @@ app_name = 'triptales'
 urlpatterns = [
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
+    path('quiz/', views.quiz, name='quiz'),
     path('FAQ/', views.FAQ, name='FAQ'),
     path('contact_us/', views.contact_us, name='contact_us'),
     path('category/<slug:category_name_slug>/', views.show_category, name='show_category'),

@@ -31,3 +31,7 @@ html {
     width: 0;
     height: 0;
 }
+
+.content-container {
+    min-height: 73vh;
+}
