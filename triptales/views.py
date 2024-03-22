@@ -320,6 +320,8 @@ def filter_sort_by(request, sort_type, filter_type, continent):
         posts = posts.order_by('created_at')
     elif sort_type == "sort-recent":
         posts = posts.order_by('-created_at')
+    elif sort_type == "least-liked":
+        posts = posts.order_by('likes')
     posts_data = [{'id': post.id, 'title': post.title, 'likes': post.likes, 'text': post.text, 'author': post.author.username, 'country_name': post.country.name, 'location_name': post.location.name, 'created_at': post.created_at, 'img_url': post.image.url if post.image else None} for post in posts]
     return JsonResponse(posts_data, safe=False)
 
