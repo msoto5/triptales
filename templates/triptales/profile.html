@@ -77,8 +77,13 @@
         <div class="row py-4 px-4">
           <div class="container">
             <div class="row">
+              {% if selected_user == user %}
               <div class="col-md-4">
                 <div class="card md-4">
+              {% else %}
+              <div class="col-md-6">
+                <div class="card md-6">
+              {% endif %}
                   <div class="card-body">
                     <h2>User Posts</h2>
                     <p class="card-text">
@@ -101,8 +106,13 @@
                   </div>
                 </div>
               </div>
+              {% if selected_user == user %}
               <div class="col-md-4">
                 <div class="card md-4">
+              {% else %}
+              <div class="col-md-6">
+                <div class="card md-6">
+              {% endif %}
                   <div class="card-body">
                     <h2>Liked Posts</h2>
                     <p class="card-text">
@@ -125,11 +135,15 @@
                   </div>
                 </div>
               </div>
+              {% if selected_user == user %}
               <div class="col-md-4">
                 <div class="card md-4">
                   <div class="card-body">
                     <h2>Saved Posts</h2>
                     <p class="card-text">
+                    <div class="alert alert-info" role="alert">
+                      <span data-feather="info"></span> You are the only one who can see your saved posts.
+                    </div>
                       {% if saved_posts %}
                         {{ saved_posts|length }} saved posts<ul class="list-group">
                           {% for post in saved_posts %}
@@ -139,16 +153,13 @@
                           {% endfor %}
                         </ul>
                       {% else %}
-                        {% if selected_user == user %}
-                          The posts you save will appear here.
-                        {% else %}
-                          {{ selected_user.username }} has not saved any posts yet.
-                        {% endif %}
+                        The posts you save will appear here.
                       {% endif %}
                     </p>
                   </div>
                 </div>
               </div>
+              {% endif %}
             </div>
           </div>
         </div>
