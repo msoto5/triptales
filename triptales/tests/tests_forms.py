@@ -1,1 +1,4 @@
-"""Tests for the forms of the triptales app."""
+from django.test import TestCase
+from triptales.forms import *
+
+class CountryFormTest(TestCase):

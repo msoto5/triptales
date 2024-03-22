@@ -66,3 +66,9 @@ class CommentModelTest(TestCase):
     def test_comment_creation(self):
         comment = Comment.objects.create(user=self.user, post=self.post, text='Test Comment')
         self.assertIn("commented on", comment.__str__())
+
+class UserProfileModelTest(TestCase):
+    def test_user_profile_creation(self):
+        user = User.objects.create_user(username='testuser', password='testpassword')
+        profile = UserProfile.objects.create(user=user, bio="Test Bio")
+        self.assertEqual(profile.__str__(), "testuser")
