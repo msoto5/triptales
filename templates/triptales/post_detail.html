@@ -19,24 +19,36 @@
             on {{ post.created_at }}
           </div>
           
-          <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ post.country }}</a>
-          <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ post.location }}</a>
-          <div>
+          <a class="badge bg-secondary text-decoration-none link-light" href="">{{ post.country }}</a>
+          <a class="badge bg-secondary text-decoration-none link-light" href="">{{ post.location }}</a>
+          <div class="py-1">
             <span data-feather="heart"></span>
             Likes: <span id="like_count">{{ post.likes }}</span>
           </div>
 
-          <div class="pt-2">
+          <div class="pt-1">
             {% if user.is_authenticated %}
               {% if is_liked %}
                 <button id="like_btn" data-postid="{{ post.id }}" class="btn btn-primary btn-sm likebutton-liked" type="button">
                   <span data-feather="thumbs-down"></span>
-                  Unlike Post
+                  Unlike
                 </button>
               {% else %}
                 <button id="like_btn" data-postid="{{ post.id }}" class="btn btn-primary btn-sm" type="button">
                   <span data-feather="thumbs-up"></span>
-                  Like Post
+                  Like
+                </button>
+              {% endif %}
+
+              {% if is_saved %}
+                <button id="save_btn" data-postid="{{ post.id }}" class="btn btn-primary btn-sm" type="button">
+                  <span data-feather="x"></span>
+                  Unsave
+                </button>
+              {% else %}
+                <button id="save_btn" data-postid="{{ post.id }}" class="btn btn-primary btn-sm" type="button">
+                  <span data-feather="bookmark"></span>
+                  Save
                 </button>
               {% endif %}
             {% endif %}
@@ -50,11 +62,8 @@
               <img src="{{ post.image.url }}" alt="Post images" />
             {% endif %}
             <p>{{ post.text }}</p>
-        </section>
+          </section>
         </header>
-
-        
-
       </div>
     </div>
   </div>

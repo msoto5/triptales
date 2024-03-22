@@ -341,7 +341,26 @@ class LikePostView(View):
             user_profile.liked_posts.add(post)
             post.likes += 1
         
-        print(f"Post likes: {post.likes}")
-        print(f"User liked posts: {user_profile.liked_posts.all()}")
+        # print(f"Post likes: {post.likes}")
+        # print(f"User liked posts: {user_profile.liked_posts.all()}")
         post.save()
         return HttpResponse(post.likes)
+
+class SavePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        post_id = request.GET['post_id']
+        try:
+            post = VacationPost.objects.get(id=int(post_id))
+        except VacationPost.DoesNotExist or ValueError:
+            return HttpResponse(-1)
+
+        user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
+
+        if post in user_profile.saved_posts.all():
+            user_profile.saved_posts.remove(post)
+        else:
+            user_profile.saved_posts.add(post)
+        
+        print(f"User saved posts: {user_profile.saved_posts.all()}")
+        return HttpResponse(1)

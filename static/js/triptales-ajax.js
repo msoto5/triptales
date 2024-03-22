@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    feather.replace(); // Redraw the feather icons
     
     $('#like_btn').click(function () {
         var postIdVar;
@@ -16,4 +17,22 @@ $(document).ready(function () {
                 feather.replace(); // Redraw the feather icons
             })
     });
+
+    $('#save_btn').click(function () {
+        var postIdVar;
+        postIdVar = $(this).attr('data-postid');
+        $.get('/triptales/save_post/', { 'post_id': postIdVar },
+            function (data) {
+                var $saved_btn = $('#save_btn');
+                $('#save_btn').toggleClass('savebutton-saved');
+                if ($saved_btn.hasClass('savebutton-saved')) {
+                    $saved_btn.html('<span data-feather="x"></span> Unlike Post');
+                } else {
+                    $saved_btn.html('<span data-feather="bookmark"></span> Like Post');
+                }
+                feather.replace(); // Redraw the feather icons
+            })
+    });
+
+    
 });

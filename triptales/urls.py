@@ -28,4 +28,5 @@ urlpatterns = [
     path('add_country/', views.add_country, name='add_country'),
     path('add_location/', views.add_location, name='add_location'),
     path('like_post/', views.LikePostView.as_view(), name='like_post'),
+    path('save_post/', views.SavePostView.as_view(), name='save_post'),
 ]
