@@ -28,3 +28,9 @@ label {
     border-radius: 6px;
     padding: 5px;
 }
+
+.post-resize {
+    max-height:300px; 
+    width: auto; 
+    height: auto;
+}

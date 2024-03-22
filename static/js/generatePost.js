@@ -5,7 +5,9 @@ function generatePost(post, formattedCreatedAt) {
     html += '<div class="card h-100">';
     html += '<h5 class="card-header">' + post.title + '</h5>';
     if (post.img_url) {
-        html += '<img src="' + post.img_url + '" class="card-img-top" alt="' + post.country_name + ' - ' + post.location_name + '">';
+        html += '<div class="d-flex justify-content-center align-items-center">';
+        html += '<img src="' + post.img_url + '" class="card-img-top post-resize" alt="' + post.country_name + ' - ' + post.location_name + '">';
+        html+=  '</div>';
     }
     html += '<div class="card-body d-flex flex-column">';
     html += '<h5 class="card-title">' + post.country_name + ' - ' + post.location_name + '</h5>';
