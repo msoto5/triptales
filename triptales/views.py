@@ -272,39 +272,13 @@ def edit_profile(request):
 
 
 class ProfileView(View):
-    def get_user_details(self, username):
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            return None
-
-        user_profile = UserProfile.objects.get_or_create(user=user)[0]
-        print(f"User_profile {user_profile.bio}")
-        form = UserProfileForm({'bio': user_profile.bio,
-                                'picture': user_profile.picture})
-
-        return (user, user_profile, form)
-
     @method_decorator(login_required)
     def get(self, request, username):
         try:
-            (user, user_profile, form) = self.get_user_details(username)
-        except TypeError:
-            return redirect(reverse('triptales:index'))
-
-        context_dict = {'user_profile': user_profile,
-                        'selected_user': user,
-                        'form': form}
-        return render(request, 'triptales/profile.html', context_dict)
-
-    @method_decorator(login_required)
-    def post(self, request, username):
-        # Check if the user is the same as the one who is logged in
-        if request.user.username != username:
-            return redirect(reverse('triptales:index'))
-
-        try:
-            (user, user_profile, form) = self.get_user_details(username)
+            user = User.objects.get(username=username)
+            user_profile = UserProfile.objects.get_or_create(user=user)[0]
+        except User.DoesNotExist:
+            return None
         except TypeError:
             return redirect(reverse('triptales:index'))
 
@@ -312,21 +286,12 @@ class ProfileView(View):
         saved_posts = user_profile.saved_posts.all()
         user_posts = user_profile.posts_made.all()
 
-        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-
-        if form.is_valid():
-            form.save(commit=True)
-            return redirect('triptales:profile', user.username)
-        else:
-            print(form.errors)
-
         context_dict = {'user_profile': user_profile,
                         'selected_user': user,
                         'liked_posts': liked_posts,
                         'saved_posts': saved_posts,
-                        'user_posts': user_posts,
-                        'form': form}
-
+                        'user_posts': user_posts}
+        
         return render(request, 'triptales/profile.html', context_dict)
 
 
@@ -344,11 +309,11 @@ class LikePostView(View):
         if post in user_profile.liked_posts.all():
             user_profile.liked_posts.remove(post)
             post.likes -= 1
-            post.save()
-            return HttpResponse(post.likes)
+        else:
+            user_profile.liked_posts.add(post)
+            post.likes += 1
         
-        user_profile.liked_posts.add(post)
-        post.likes += 1
+        print(f"Post likes: {post.likes}")
+        print(f"User liked posts: {user_profile.liked_posts.all()}")
         post.save()
-
         return HttpResponse(post.likes)

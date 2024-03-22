@@ -1,5 +1,5 @@
-
 $(document).ready(function () {
+    alert('Hello');
     $('#like_btn').click(function () {
         var postIdVar;
         postIdVar = $(this).attr('data-postid');
