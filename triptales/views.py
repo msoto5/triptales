@@ -11,6 +11,7 @@ from triptales.forms import *
 from triptales.models import *
 from django.views import View
 from django.utils.decorators import method_decorator
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -33,6 +34,7 @@ def posts_by_continent(request, continent_name):
     context_dict = {
         'continent_name': continent_name,
         'posts': posts,
+        'countries': countries,
     }
 
     return render(request, 'triptales/posts_by_continent.html', context=context_dict)
@@ -41,8 +43,11 @@ def posts_by_continent(request, continent_name):
 def post_detail(request, post_id):
     post = get_object_or_404(VacationPost, pk=post_id)
 
-    current_userprofile = UserProfile.objects.get_or_create(user=request.user)[0]
-    is_liked = True if post in current_userprofile.liked_posts.all() else False
+    if request.user.is_authenticated:
+        current_userprofile = UserProfile.objects.get_or_create(user=request.user)[0]
+        is_liked = True if post in current_userprofile.liked_posts.all() else False
+    else:
+        is_liked = False
     context = {'post': post, 'is_liked': is_liked}
     return render(request, 'triptales/post_detail.html', context)
 
@@ -131,6 +136,10 @@ def visitor_cookie_handler(request):
 def about(request):
     visitor_cookie_handler(request)
     return render(request, 'triptales/about.html')
+
+def quiz(request):
+    visitor_cookie_handler(request)
+    return render(request, 'triptales/quiz.html')
 
 
 def FAQ(request):
@@ -223,10 +232,6 @@ def goto_url(request):
     #         return redirect(reverse('triptales:index'))
 
 
-def quiz(request):
-    return HttpResponse("Not implemented yet.")
-
-
 def basetest(request, continent):
     context_dict = {'continent': continent}
     return render(request, 'triptales/basetest.html', context=context_dict)
@@ -294,6 +299,29 @@ class ProfileView(View):
         
         return render(request, 'triptales/profile.html', context_dict)
 
+def get_all_posts(request, type):
+    if type == "likes":
+        posts = VacationPost.objects.order_by('-likes')[:6] #number of posts displayed on page can be altered 
+    if type == "recent":
+        posts = VacationPost.objects.order_by('-created_at')[:6]
+    posts_data = [{'id': post.id, 'title': post.title, 'likes': post.likes, 'text': post.text, 'author': post.author.username, 'country_name': post.country.name, 'location_name': post.location.name, 'created_at': post.created_at,  'img_url': post.image.url if post.image else None} for post in posts]
+    response_data = {'posts': posts_data}
+    return JsonResponse(response_data, safe=False)
+
+
+def filter_sort_by(request, sort_type, filter_type, continent):
+    countries = Country.objects.filter(continent__iexact=continent)
+    if filter_type != "none":
+        countries = countries.filter(id=filter_type)
+    posts = VacationPost.objects.filter(country__in=countries).distinct()
+    if sort_type == "sort-liked":
+        posts = posts.order_by('-likes')
+    elif sort_type == "sort-oldest":
+        posts = posts.order_by('created_at')
+    elif sort_type == "sort-recent":
+        posts = posts.order_by('-created_at')
+    posts_data = [{'id': post.id, 'title': post.title, 'likes': post.likes, 'text': post.text, 'author': post.author.username, 'country_name': post.country.name, 'location_name': post.location.name, 'created_at': post.created_at, 'img_url': post.image.url if post.image else None} for post in posts]
+    return JsonResponse(posts_data, safe=False)
 
 class LikePostView(View):
     @method_decorator(login_required)

@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from triptales_project.settings import PROFILE_IMG_DIR, POST_IMG_DIR
+from django.utils import timezone
 
 
 class Country(models.Model):
@@ -70,6 +71,7 @@ class VacationPost(models.Model):
     likes = models.PositiveIntegerField(default=0)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'{self.title} by {self.author.username}'

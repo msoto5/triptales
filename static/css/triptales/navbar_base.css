@@ -1,3 +1,5 @@
+@import url("dropdown_menu.css");
+
 /* DON'T USE H6 for anything else, need it for title*/
 h6 {
     color:#ffffff;
@@ -9,6 +11,7 @@ h6 {
   .nava {
     height: 60px;
     background-image: radial-gradient(100% 100% at 50% 50%, #44a0ba 0, #3d4cba 100%);
+    filter:saturate(1)
   }
   
   /* TripTales logo text*/
@@ -70,11 +73,13 @@ h6 {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
   }
-  
+
   .button-nav:focus {
     box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
   }
   .button-nav:active {
     box-shadow: #3c4fe0 0 3px 7px inset;
   }
+
+
   

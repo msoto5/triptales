@@ -1,5 +1,5 @@
 {% extends 'triptales/base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block title_block %}
   {{ selected_user.username }} profile
@@ -12,7 +12,7 @@
 {% block body_block %}
 {% comment %}Based on https://bbbootstrap.com/snippets/individual-user-profile-social-network-94176986 {% endcomment %}
 <div class="container">
-  <div class="row">
+  <div class="row  pad_profile">
     <div class="col-12">
       <!-- Profile widget --> 
       <div class="bg-white shadow rounded overflow-hidden">

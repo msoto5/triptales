@@ -23,9 +23,9 @@
     border-style: solid;
     border-radius: 10px;
     width: 50vw;
-    height: 50vh;
+    height: fit-content;
     margin-left: -25vw;
-    margin-top: -25vh;
+    margin-top: -40vh;
     z-index: 200; 
     backdrop-filter: blur(5px);
     animation-name: popup_fadeIn;
@@ -47,6 +47,7 @@
 
 .popupcontent {
     padding: 10px;
+    max-height: 500px;
 }
 
 #button {

@@ -1,8 +1,22 @@
 {% extends 'triptales/base.html' %}
-{% load staticfiles %}
+{% load static %}
 {% block body_block %}
 
 <!-- Load page specific Stylesheet-->
 <link rel="stylesheet" href="{% static 'css/triptales/quiz.css' %}">
+
+<!-- Built off of example from https://medium.com/@codepicker57/building-an-interactive-quiz-with-html-css-and-javascript-efe9bd8129e2 -->
+
+<div class="quiz-container">
+    <div id="quiz">
+        <h1>Holiday Quiz!</h1>
+        <h4>Find that perfect holiday, curated just for you.</h4>
+        <br>
+        <div id="question"></div>
+        <div id="options"></div>
+    </div>
+</div>
+
+<script src="{% static "js/quiz.js" %}" crossorigin="anonymous"></script>
 
 {% endblock %}

@@ -87,6 +87,7 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -148,3 +149,4 @@ LOGIN_REDIRECT_URL = 'triptales:index'
 
 # The page users are directed to if they are not logged in.
 LOGIN_URL = 'auth_login'
+

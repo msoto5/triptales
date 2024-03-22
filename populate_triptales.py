@@ -1,4 +1,5 @@
 import os
+import random
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'triptales_project.settings')
@@ -78,7 +79,7 @@ def add_user(username, password, email):
 def add_post(title, text, author, country, location):
     user = User.objects.get(username=author)
     post = VacationPost.objects.get_or_create(title=title, text=text, author=user, country=country, location=location)[0]
-    post.likes = 0
+    post.likes = random.randint(0, 60)
     post.save()
     return post
 
