@@ -1,10 +1,20 @@
 {% extends 'triptales/base.html' %}
+{% load static %}
 
 {% block title_block %}
   {{ post.title }}
 {% endblock %}
 
 {% block body_block %}
+<link rel="stylesheet" href="{% static 'css/triptales/backButton.css' %}">
+
+<div class="nava-sorts">
+    <div class="center_sorts">
+        <div class="sorts">
+            <button onclick="window.history.back()" class="back-button">Back</button>
+        </div>
+    </div>
+</div>
   <div class="container">
     <div class="pt-4 row pad_profile">
       <div class="col-12">
@@ -16,27 +26,39 @@
           <div class="text-muted fst-italic mb-2">
             Posted by
             <a href="{% url 'triptales:profile' post.author.username %}" class="card-link">{{ post.author}}</a>
-            on {{ post.created_at }}
+            on {{ post.created_at|date:"F j, Y, g:i a" }}
           </div>
           
-          <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ post.country }}</a>
-          <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ post.location }}</a>
-          <div>
+          <a class="badge bg-secondary text-decoration-none link-light" href="">{{ post.country }}</a>
+          <a class="badge bg-secondary text-decoration-none link-light" href="">{{ post.location }}</a>
+          <div class="py-1">
             <span data-feather="heart"></span>
             Likes: <span id="like_count">{{ post.likes }}</span>
           </div>
 
-          <div class="pt-2">
+          <div class="pt-1">
             {% if user.is_authenticated %}
               {% if is_liked %}
                 <button id="like_btn" data-postid="{{ post.id }}" class="btn btn-primary btn-sm likebutton-liked" type="button">
                   <span data-feather="thumbs-down"></span>
-                  Unlike Post
+                  Unlike
                 </button>
               {% else %}
                 <button id="like_btn" data-postid="{{ post.id }}" class="btn btn-primary btn-sm" type="button">
                   <span data-feather="thumbs-up"></span>
-                  Like Post
+                  Like
+                </button>
+              {% endif %}
+
+              {% if is_saved %}
+                <button id="save_btn" data-postid="{{ post.id }}" class="btn btn-primary btn-sm" type="button">
+                  <span data-feather="x"></span>
+                  Unsave
+                </button>
+              {% else %}
+                <button id="save_btn" data-postid="{{ post.id }}" class="btn btn-primary btn-sm" type="button">
+                  <span data-feather="bookmark"></span>
+                  Save
                 </button>
               {% endif %}
             {% endif %}
@@ -45,16 +67,15 @@
           <div class="mb-4">
             
           </div>
+          {% if post.image %}
+          <figure class="mb-4">
+            <img class="img-fluid rounded" src="{{ post.image.url }}" alt="Post images" />
+          </figure>
+          {% endif %}
           <section class="mb-5">
-            {% if post.image %}
-              <img src="{{ post.image.url }}" alt="Post images" />
-            {% endif %}
-            <p>{{ post.text }}</p>
-        </section>
+            <p class="mb-5">{{ post.text }}</p>
+          </section>
         </header>
-
-        
-
       </div>
     </div>
   </div>

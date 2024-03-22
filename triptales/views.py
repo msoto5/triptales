@@ -30,10 +30,22 @@ def posts_by_continent(request, continent_name):
     countries = Country.objects.filter(continent__iexact=continent_name)
 
     posts = VacationPost.objects.filter(country__in=countries).distinct()
+    posts_dic = {}
+    for p in posts:
+        if request.user.is_authenticated:
+            current_userprofile = UserProfile.objects.get_or_create(user=request.user)[0]
+            is_liked = True if p in current_userprofile.liked_posts.all() else False
+            is_saved = True if p in current_userprofile.saved_posts.all() else False
+        else:
+            is_liked = False
+            is_saved = False
+
+        posts_dic[p] = {'is_liked': is_liked, 'is_saved': is_saved}
 
     context_dict = {
         'continent_name': continent_name,
         'posts': posts,
+        'posts_dic': posts_dic,
         'countries': countries,
     }
 
@@ -46,9 +58,12 @@ def post_detail(request, post_id):
     if request.user.is_authenticated:
         current_userprofile = UserProfile.objects.get_or_create(user=request.user)[0]
         is_liked = True if post in current_userprofile.liked_posts.all() else False
+        is_saved = True if post in current_userprofile.saved_posts.all() else False
     else:
         is_liked = False
-    context = {'post': post, 'is_liked': is_liked}
+        is_saved = False
+
+    context = {'post': post, 'is_liked': is_liked, 'is_saved': is_saved}
     return render(request, 'triptales/post_detail.html', context)
 
 
@@ -151,87 +166,6 @@ def contact_us(request):
     visitor_cookie_handler(request)
     return render(request, 'triptales/contact_us.html')
 
-
-def show_category(request, category_name_slug):
-    return HttpResponse("Not implemented yet.")
-
-    # Tango_with_django project:
-    # context_dict = {}
-    # try:
-    #     category = [Category.objects.get(slug=category_name_slug)]
-    #     pages = Page.objects.filter(category=category).order_by('-views')
-    #     context_dict['pages'] = pages
-    #     context_dict['category'] = category
-    # except Category.DoesNotExist:
-    #     context_dict['category'] = None
-    #     context_dict['pages'] = None
-
-    # return render(request, 'triptales/category.html', context=context_dict)
-
-
-@login_required
-def add_category(request):
-    return HttpResponse("Not implemented yet.")
-    # form = CategoryForm()
-
-    # if request.method == 'POST':
-    #     form = CategoryForm(request.POST)
-
-    #     if form.is_valid():
-    #         form.save(commit=True)
-    #         return redirect('/triptales/')
-    #     else:
-    #         print(form.errors)
-
-    # return render(request, 'triptales/add_category.html', {'form': form})
-
-
-@login_required
-def add_page(request, category_name_slug):
-    return HttpResponse("Not implemented yet.")
-    # try:
-    #     category = Category.objects.get(slug=category_name_slug)
-    # except:
-    #     category = None
-
-    # if category is None:
-    #     return redirect('/triptales/')
-
-    # form = PageForm()
-
-    # if request.method == 'POST':
-    #     form = PageForm(request.POST)
-
-    #     if form.is_valid():
-    #         if category:
-    #             page = form.save(commit=False)
-    #             page.category = category
-    #             page.views = 0
-    #             page.save()
-
-    #             return redirect(reverse('triptales:show_category',
-    #                                     kwargs={'category_name_slug':
-    #                                              category_name_slug}))
-    #     else:
-    #         print(form.errors)
-
-    # context_dict = {'form': form, 'category': category}
-    # return render(request, 'triptales/add_location.html', context_dict)
-
-
-def goto_url(request):
-    return HttpResponse("Not implemented yet.")
-    # if request.method == 'GET':
-    #     try:
-    #         page_id = request.GET['page_id']
-    #         selected_page = Page.objects.get(id=page_id)
-    #         selected_page.views += 1
-    #         selected_page.save()
-    #         return redirect(selected_page.url)
-    #     except Page.DoesNotExist:
-    #         return redirect(reverse('triptales:index'))
-
-
 def basetest(request, continent):
     context_dict = {'continent': continent}
     return render(request, 'triptales/basetest.html', context=context_dict)
@@ -320,6 +254,8 @@ def filter_sort_by(request, sort_type, filter_type, continent):
         posts = posts.order_by('created_at')
     elif sort_type == "sort-recent":
         posts = posts.order_by('-created_at')
+    elif sort_type == "least-liked":
+        posts = posts.order_by('likes')
     posts_data = [{'id': post.id, 'title': post.title, 'likes': post.likes, 'text': post.text, 'author': post.author.username, 'country_name': post.country.name, 'location_name': post.location.name, 'created_at': post.created_at, 'img_url': post.image.url if post.image else None} for post in posts]
     return JsonResponse(posts_data, safe=False)
 
@@ -341,7 +277,26 @@ class LikePostView(View):
             user_profile.liked_posts.add(post)
             post.likes += 1
         
-        print(f"Post likes: {post.likes}")
-        print(f"User liked posts: {user_profile.liked_posts.all()}")
+        # print(f"Post likes: {post.likes}")
+        # print(f"User liked posts: {user_profile.liked_posts.all()}")
         post.save()
         return HttpResponse(post.likes)
+
+class SavePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        post_id = request.GET['post_id']
+        try:
+            post = VacationPost.objects.get(id=int(post_id))
+        except VacationPost.DoesNotExist or ValueError:
+            return HttpResponse(-1)
+
+        user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
+
+        if post in user_profile.saved_posts.all():
+            user_profile.saved_posts.remove(post)
+        else:
+            user_profile.saved_posts.add(post)
+        
+        print(f"User saved posts: {user_profile.saved_posts.all()}")
+        return HttpResponse(1)

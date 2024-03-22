@@ -17,6 +17,7 @@
                 <option value="default">Default</option>
                 <option selected="selected" value="sort-recent">Newest</option>
                 <option value="sort-liked">Most liked</option>
+                <option value="least-liked">Least liked</option>
                 <option value="sort-oldest">Oldest</option>
             </select>
         </div>
@@ -41,7 +42,9 @@
                 <div class="card h-100">
                     <h5 class="card-header">{{ post.title }}</h5>
                     {% if post.image %}
-                    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.country.name }} - {{ post.location.name }}">
+                    <div class="d-flex justify-content-center align-items-center">
+                    <img src="{{ post.image.url }}" class="card-img-top post-resize" alt="{{ post.country.name }} - {{ post.location.name }}">
+                    </div>
                     {% endif %}
 
                     <div class="card-body d-flex flex-column">

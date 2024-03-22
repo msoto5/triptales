@@ -22,3 +22,9 @@
     margin-top: 20px; 
     border-top: 3px solid #3B4282;
 }
+
+.post-resize {
+    max-height:300px; 
+    width: auto; 
+    height: auto;
+}

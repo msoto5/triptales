@@ -12,10 +12,6 @@ urlpatterns = [
     path('quiz/', views.quiz, name='quiz'),
     path('FAQ/', views.FAQ, name='FAQ'),
     path('contact_us/', views.contact_us, name='contact_us'),
-    path('category/<slug:category_name_slug>/', views.show_category, name='show_category'),
-    path('add_category/', views.add_category, name='add_category'),
-    path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
-    path('goto/', views.goto_url, name='goto'),
     path('quiz', views.quiz, name='quiz'),
     path('basetest', views.basetest, name='basetest'),
     path('basetest/<str:continent>', views.basetest, name='basetest'),
@@ -28,4 +24,5 @@ urlpatterns = [
     path('add_country/', views.add_country, name='add_country'),
     path('add_location/', views.add_location, name='add_location'),
     path('like_post/', views.LikePostView.as_view(), name='like_post'),
+    path('save_post/', views.SavePostView.as_view(), name='save_post'),
 ]
