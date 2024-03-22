@@ -16,7 +16,7 @@
           <div class="text-muted fst-italic mb-2">
             Posted by
             <a href="{% url 'triptales:profile' post.author.username %}" class="card-link">{{ post.author}}</a>
-            on {{ post.created_at }}
+            on {{ post.created_at|date:"F j, Y, g:i a" }}
           </div>
           
           <a class="badge bg-secondary text-decoration-none link-light" href="">{{ post.country }}</a>
@@ -57,11 +57,13 @@
           <div class="mb-4">
             
           </div>
+          {% if post.image %}
+          <figure class="mb-4">
+            <img class="img-fluid rounded" src="{{ post.image.url }}" alt="Post images" />
+          </figure>
+          {% endif %}
           <section class="mb-5">
-            {% if post.image %}
-              <img src="{{ post.image.url }}" alt="Post images" />
-            {% endif %}
-            <p>{{ post.text }}</p>
+            <p class="mb-5">{{ post.text }}</p>
           </section>
         </header>
       </div>

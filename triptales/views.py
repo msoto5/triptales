@@ -30,10 +30,22 @@ def posts_by_continent(request, continent_name):
     countries = Country.objects.filter(continent__iexact=continent_name)
 
     posts = VacationPost.objects.filter(country__in=countries).distinct()
+    posts_dic = {}
+    for p in posts:
+        if request.user.is_authenticated:
+            current_userprofile = UserProfile.objects.get_or_create(user=request.user)[0]
+            is_liked = True if p in current_userprofile.liked_posts.all() else False
+            is_saved = True if p in current_userprofile.saved_posts.all() else False
+        else:
+            is_liked = False
+            is_saved = False
+
+        posts_dic[p] = {'is_liked': is_liked, 'is_saved': is_saved}
 
     context_dict = {
         'continent_name': continent_name,
         'posts': posts,
+        'posts_dic': posts_dic,
         'countries': countries,
     }
 
