@@ -166,28 +166,6 @@ TripTales
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{% static 'js/generatePost.js' %}" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        loadPosts('likes', '#top-posts-container');
-        loadPosts('recent', '#recent-posts-container');
-
-        function loadPosts(type, containerId) {
-            const xhttp = new XMLHttpRequest();
-            xhttp.onload = function () {
-                const response = JSON.parse(this.responseText);
-                const posts = response.posts;
-                let html = '';
-                posts.forEach(function (post) {
-                    const createdAtDate = new Date(post.created_at);
-                    const formattedCreatedAt = createdAtDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-                    html += generatePost(post, formattedCreatedAt);
-                });
-                $(containerId).html(html);
-            };
-            xhttp.open("GET", "/get_all_posts/" + type + "/", true);
-            xhttp.send();
-        }
-    });
-</script>
+<script src="{% static 'js/popularPosts.js' %}" crossorigin="anonymous"></script>
 
 {% endblock %}

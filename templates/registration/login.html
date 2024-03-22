@@ -32,12 +32,6 @@ Login
                         <input type="password" name="password" id="id_password" class="form-control" placeholder="Password"
                             required>
                     </div>
-
-                    <!-- <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                    </div> -->
                     <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Log in</button>
                     <br />
                     <p class="text-center text-muted text-center">
@@ -48,19 +42,5 @@ Login
             </div>
         </div>
     </div>
-
-
-    <!-- <form class="form-sigin" role="form" method="post" action=".">
-        {% csrf_token %}
-        <label for="inputUsername" class="sr-only">Username:</label>
-        <input type="text" name="username" id="id_username" class="form-control" placeholder="Username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password:</label>
-        <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Sig in</button>
-    </form>
-    <p>
-        Not registered?
-        <a href="{% url 'registration_register' %}">Register here!</a>
-    </p> -->
 </div>
 {% endblock %}

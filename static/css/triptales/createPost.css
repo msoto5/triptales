@@ -1,0 +1,96 @@
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.tag-container {
+    margin-bottom: 15px;
+}
+.custom-checkbox {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+
+.card-header {
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ddd;
+    border-radius: 15px 15px 0 0;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.user-info {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label[for="title"] {
+    font-weight: bold;
+}
+
+textarea {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    resize: vertical;
+}
+
+.custom-file-upload {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #000000;
+}
+
+
+input[type="file"] {
+    display: none;
+}
+.photo-preview {
+    margin-top: 10px;
+    max-width: 100px; 
+    max-height: 100px; 
+    display: inline-block; 
+    vertical-align: top; 
+    margin-left: 10px; 
+}
+
+.custom-file-upload {
+    background-color: #007bff; 
+    color: white; 
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3; 
+}

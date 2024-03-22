@@ -31,6 +31,5 @@ label {
 
 .post-resize {
     max-height:300px; 
-    width: auto; 
-    height: auto;
+    max-width: 530px;
 }
