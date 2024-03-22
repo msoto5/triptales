@@ -25,7 +25,7 @@ def index(request):
 
 
 def posts_by_continent(request, continent_name):
-    continent_name = continent_name.replace('-', '').replace('.png', '')
+    continent_name = continent_name.replace('-', '').replace('.png', '').replace('_', ' ')
 
     countries = Country.objects.filter(continent__iexact=continent_name)
 
